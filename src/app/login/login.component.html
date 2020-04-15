@@ -1,0 +1,36 @@
+
+<div class="panel">
+  <div class="login card">
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" >
+        <div class="form-group center-align">
+          <mat-form-field class="full-width font-resize" >          
+            <input matInput [class.is-invalid]="getUsername.invalid && getUsername.touched" type="text" placeholder="Username" formControlName="username" class="form-control" id="username" name="username" >
+          </mat-form-field>
+          
+          <div *ngIf="getUsername.invalid && getUsername.touched" style="text-align: center;" class="error-message">
+            <small  *ngIf="getUsername.errors ?.required">Username is required<br></small>
+            <small *ngIf="getUsername.errors ?.value">Email is not correct</small>
+          </div>
+        </div>
+        <div class="form-group center-align">
+          <mat-form-field class="full-width  font-resize">     
+            <input matInput placeholder="Password" [class.is-invalid]="getPassword.invalid && getPassword.touched" type="password" formControlName="password"  id="password" name="password" class="form-control font-resize"/>
+          </mat-form-field>
+  
+          <div *ngIf="getPassword.invalid && getPassword.touched" style="text-align: center;" class="error-message">
+            <small *ngIf="getPassword.errors ?.required">Password is required<br></small>
+            <small *ngIf="getPassword.errors ?.minlength">Password must be atleast of 4 characters<br></small>
+            <small *ngIf="getPassword.errors ?.valueUpper">atleast 1 uppercase character<br></small>
+            <small *ngIf="getPassword.errors ?.valueNumber">atleast 1 number<br></small>
+            <small *ngIf="getPassword.errors ?.valueLower">atleast 1 lowercase character<br></small>
+            <small *ngIf="getPassword.errors ?.valueSpecial">0 special characters<br></small>
+          </div>     
+        </div>
+        <small id="credentials" class="text-danger" >{{credentialsMatch}}</small>
+        <div style="border-top: 1px solid white;padding-top: 20px;"> 
+          <button mat-button color="primary" type="submit" class="font-resize" [disabled]="!loginForm.valid" id="login_button" [class.btn-primary]="'!loginForm.valid'">LOGIN</button>
+          <button mat-button color="primary" id="register"  class="font-resize" routerLink="/register">SIGN IN</button>
+        </div>
+    </form>
+  </div>
+</div>

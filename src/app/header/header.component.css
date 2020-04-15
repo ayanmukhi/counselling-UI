@@ -1,0 +1,21 @@
+.fill-remaining-space {
+    flex: 2 1 auto;
+}
+
+ 
+.header-item {
+    padding-right: 45px;
+}
+
+.header-hover:hover {
+    color: rgb(0, 0, 0);
+    cursor: pointer;
+}
+
+.font-resize {
+    font-size: 1.5vw;
+}
+
+mat-icon:hover, .sign-in:hover {
+    cursor: pointer;
+}

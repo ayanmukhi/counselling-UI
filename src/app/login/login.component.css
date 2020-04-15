@@ -1,0 +1,53 @@
+.login{
+    padding: 1.4%;
+    position:absolute;
+    top:25%;
+    left:25%;
+    color: #0e0e0e;
+    border: 2px solid rgb(103, 58, 183);
+    border-radius: 25px;
+    margin-left:auto;
+    margin-right: auto;
+    width: 45%;
+    height: fit-content;
+    background-color: #673ab721;
+    z-index: 2;
+}
+.card {
+    box-shadow: 0 0 10px 5px white;
+    text-align: center;
+}
+.centered{
+    text-align: center;   
+}
+button:hover {
+    background-color: rgb(103, 58, 183);
+    color: white;
+}
+
+.container{
+    margin-top: 20px;
+}
+.full-width {
+    width: 60%;
+}
+
+.error-message {
+    text-align: left;
+    color: red;
+}
+
+.font-resize {
+    font-size: 1.5vw;
+}
+
+.panel {
+    position:relative;
+    top:0%;
+    left:0%;
+    height:91%;
+    width:80%;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: rgba(103, 58, 183, 0.32);
+}

@@ -1,0 +1,22 @@
+<mat-toolbar color="primary">
+    <div class="example-button-row">
+        <a mat-button class="font-resize header-hover "  routerLink="/">Home</a>
+        <a mat-button class="font-resize header-hover" routerLink="/counselors">Counselors</a>
+        <a mat-button class="font-resize header-hover" routerLink="/faq">FAQ</a>
+        <a mat-button class="font-resize header-hover" routerLink="/about-us">About Us</a>
+    </div>
+
+
+    <!-- This fills the remaining space of the current row -->
+    <span class="fill-remaining-space"></span>
+  
+    <span class="font-resize" *ngIf="checkUserLoggedIn(); else elseBlock" routerLink="/profile">
+        <button mat-button class="font-resize header-hover">Welcome</button>
+        <button mat-button class="font-resize header-hover" (click)="logout()">Logout</button>
+    </span>
+    <ng-template #elseBlock class="font-resize sign-in">
+        <button mat-icon-button color="basic">
+            <mat-icon class="font-resize header-hover" style="padding-left: 5px;" routerLink="/login">person_add</mat-icon>
+        </button>
+    </ng-template>
+</mat-toolbar>
