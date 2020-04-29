@@ -1,4 +1,89 @@
 <div class="panel">
-    <div class="body">
-    </div>
+    <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()" class="row">
+        <div class="col-md-7 left-text-fields">
+            <div >
+                <mat-form-field class="full-width font-resize">          
+                    <input matInput [class.is-invalid]="getFullName.invalid && getFullName.touched" type="text" placeholder="FULL NAME" formControlName="name" >
+                </mat-form-field>
+                <div *ngIf="getFullName.invalid && getFullName.touched"  class="error-message">
+                    <small *ngIf="getFullName.errors ?.required">Full Name is required<br></small>
+                    <small *ngIf="getFullName.errors ?.value">Name is not correct</small>
+                </div>
+            </div>
+            <div >
+                <mat-form-field class="full-width font-resize" >          
+                    <input matInput [class.is-invalid]="getEmail.invalid && getEmail.touched" type="text" placeholder="EMAIL" formControlName="username" >
+                </mat-form-field>
+                <div *ngIf="getEmail.invalid && getEmail.touched"  class="error-message">
+                    <small  *ngIf="getEmail.errors ?.required">Email is required<br></small>
+                    <small *ngIf="getEmail.errors ?.value">Email is not correct</small>
+                </div>
+            </div>
+            <div >
+                <mat-form-field class="full-width  font-resize">     
+                  <input matInput placeholder="PASSWORD" #password (keyup)="touched()" [class.is-invalid]="getPassword.invalid && getPassword.touched" type="password" formControlName="password" class="font-resize"/>
+                </mat-form-field>
+        
+                <div *ngIf="getPassword.invalid && getPassword.touched" class="error-message">
+                  <small *ngIf="getPassword.errors ?.required">Password is required<br></small>
+                  <small *ngIf="getPassword.errors ?.minlength">Password must be atleast of 4 characters<br></small>
+                  <small *ngIf="getPassword.errors ?.valueUpper">atleast 1 uppercase character<br></small>
+                  <small *ngIf="getPassword.errors ?.valueNumber">atleast 1 number<br></small>
+                  <small *ngIf="getPassword.errors ?.valueLower">atleast 1 lowercase character<br></small>
+                  <small *ngIf="getPassword.errors ?.valueSpecial">0 special characters<br></small>
+                </div>     
+            </div>
+            <div >
+                <mat-form-field class="full-width  font-resize">     
+                  <input matInput placeholder="CONFIRM PASSWORD" (keyup)="confirmTouched()" #confirmPassword [class.is-invalid]="passwordsMatch" type="password"  class="font-resize"/>
+                </mat-form-field>
+                <small *ngIf="touch && confirmTouch && !(password.value == confirmPassword.value)" class="error-message">Passwords don't match</small>
+            </div>
+            <div>
+                <mat-form-field class="full-width">
+                    <mat-label>Date of Birth</mat-label>
+                    <input matInput [max]="maxDate" [matDatepicker]="picker" formControlName="dob">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+                <div *ngIf="getDate.invalid && getDate.touched" class="error-message">
+                    <small *ngIf="getDate.errors ?.required">Please select your DOB</small>
+                </div>
+            </div>                    
+        </div>      
+        <div class="full-width col-md-5 image-block">
+            <img *ngIf="image; else elseBlock"  mat-card-image src="{{image}}" >
+            <ng-template #elseBlock>
+                <img mat-card-image src="../../assets/images/user no image/images.jpg">
+            </ng-template>        
+            <input class="btn btn-primary imageButton" #imageInput type="file" accept="image/*" (change)="processFile(imageInput)">
+        </div>   
+        <div class="full-width register-button">
+            <div>
+                <mat-radio-group class="radio-group" formControlName="role">
+                    <mat-radio-button class="radio-button" *ngFor="let option of roleOptions" matTooltip="{{option.info}}" [value]="option.role" >
+                        {{option.role}}
+                    </mat-radio-button>
+                </mat-radio-group>
+                <mat-icon matTooltip="Specify your Role " class="font-resize header-hover" >live_help</mat-icon>
+                <div *ngIf="getRole.invalid && getRole.touched" class="error-message centered">
+                    <small  *ngIf="getRole.errors ?.required">Please select your Role  <br></small>
+                </div>
+            </div>
+            <div>
+                <mat-radio-group class="radio-group" formControlName="gender">
+                    <mat-radio-button class="radio-button" *ngFor="let gender of genderOptions" [value]="gender" >
+                        {{gender}}
+                    </mat-radio-button>
+                </mat-radio-group>
+                <mat-icon matTooltip="Specify your gender" class="font-resize header-hover" >live_help</mat-icon>
+                <div *ngIf="getGender.invalid && getGender.touched" class="error-message centered">
+                    <small  *ngIf="getGender.errors ?.required">Please select your gender<br></small>
+                </div>
+            </div>  
+            <hr> 
+            <button mat-button type="submit" [disabled]="!registrationForm.valid || !(password.value == confirmPassword.value)">REGISTER</button>
+            <span class="register-error error-message" *ngIf="errorMessage">{{errorMessage}}</span>
+        </div>
+    </form> 
 </div>

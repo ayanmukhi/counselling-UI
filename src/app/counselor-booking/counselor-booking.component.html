@@ -1,0 +1,28 @@
+
+<div class="dialog" mat-dialog-content>
+  <form [formGroup]="bookingForm" (ngSubmit)="submit()">
+    <label id="example-radio-group-label">Select the type of Counseling you want :</label>
+    <mat-radio-group formControlName="category" class="example-radio-group" >
+      <mat-radio-button  class="example-radio-button" *ngFor="let type of counselings" value={{type}} (click)="selectedType(type)">
+        {{type}}
+      </mat-radio-button>
+    </mat-radio-group>
+    <div class="info" *ngIf="!getCategory.errors ?.required">
+      <label><b>PLACE : <i>{{location}}</i></b></label>
+    </div>
+    <div *ngIf="!getCategory.errors ?.required">
+      <label><b>TIME : <i>{{time}}</i></b></label>
+    </div>
+    <mat-form-field *ngIf="!getCategory.errors ?.required" class="example-full-width">
+      <mat-label>Choose a date</mat-label>
+      <input matInput [min]="minDate" [max]="maxDate" formControlName="date" [matDatepickerFilter]="myFilter" formControlName="date" [matDatepicker]="picker">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+    
+  </form>
+</div>
+<div mat-dialog-actions>
+  <button mat-button [mat-dialog-close]="data.animal"  [disabled]="!bookingForm.valid" >BOOK</button>
+  <button mat-button (click)="onNoClick()">CLOSE</button>
+</div>

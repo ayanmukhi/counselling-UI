@@ -20,6 +20,8 @@
 .centered{
     text-align: center;   
 }
+
+
 button:hover {
     background-color: rgb(103, 58, 183);
     color: white;
@@ -28,6 +30,7 @@ button:hover {
 .container{
     margin-top: 20px;
 }
+
 .full-width {
     width: 60%;
 }
@@ -49,5 +52,4 @@ button:hover {
     width:80%;
     margin-left: auto;
     margin-right: auto;
-    background-color: rgba(103, 58, 183, 0.32);
 }

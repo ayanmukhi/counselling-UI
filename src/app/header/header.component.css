@@ -19,3 +19,7 @@
 mat-icon:hover, .sign-in:hover {
     cursor: pointer;
 }
+mat-toolbar {
+    position: fixed;
+    z-index: 2 ;
+}

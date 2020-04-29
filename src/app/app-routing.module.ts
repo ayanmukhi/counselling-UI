@@ -8,17 +8,19 @@ import { RegisterComponent } from './register/register.component';
 import { AboutUsComponent } from './about-us/about-us.component';
 import { CounselorsComponent } from './counselors/counselors.component';
 import { FaqComponent } from './faq/faq.component';
+import { CounselorPersonalDetailsComponent } from './counselor-personal-details/counselor-personal-details.component';
 
 
 const routes: Routes = [
-  {path:'', component: HomeComponent},
-  {path:'login', component: LoginComponent},
-  {path:'counselor-profile', component: CounselorProfileComponent},
-  {path:'seeker-profile', component: SeekerProfileComponent},
-  {path:'register',component: RegisterComponent},
-  {path:'about-us', component: AboutUsComponent},
-  {path:'counselors', component: CounselorsComponent},
-  {path:'faq', component: FaqComponent}
+  {path:'', component: HomeComponent, outlet: "mainOutlet"},
+  {path:'login', component: LoginComponent, outlet: "mainOutlet"},
+  {path:'counselor-profile', component: CounselorProfileComponent, outlet: "mainOutlet"},
+  {path:'seeker-profile', component: SeekerProfileComponent, outlet: "mainOutlet"},
+  {path:'register',component: RegisterComponent, outlet: "mainOutlet"},
+  {path:'about-us', component: AboutUsComponent, outlet: "mainOutlet"},
+  {path:'counselors', component: CounselorsComponent, outlet: "mainOutlet"},
+  {path:'faq', component: FaqComponent, outlet: "mainOutlet"},
+  {path:'', component: CounselorPersonalDetailsComponent, outlet: "counselorProfile"}
 
 ];
 

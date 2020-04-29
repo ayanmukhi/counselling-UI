@@ -3,7 +3,9 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  loginapi: 'http://filemaker/public/index.php/api/v1/login',
+  loginApi: 'http://filemaker/public/index.php/api/v1/login',
+  getUsersApi: 'http://filemaker/public/index.php/api/v1/users/counselors',
+  userApi: 'http://filemaker/public/index.php/api/v1/users',
   production: false
 };
 

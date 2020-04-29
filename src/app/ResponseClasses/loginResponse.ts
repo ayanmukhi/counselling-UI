@@ -1,8 +1,5 @@
 export class LoginResponse {
     success: boolean;
-    data: {
-        sic:number;
-        role:string;
-    };
+    data:string;
     token:string;
 }

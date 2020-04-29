@@ -1,15 +1,83 @@
 .panel {
-    position:relative;
-    top:0%;
-    left:0%;
-    height:91%;
-    width:80%;
-    margin-left: auto;
-    margin-right: auto;
-    background-color: rgba(103, 58, 183, 0.32);
-    
+  /* background-color: red; */
+  width:80%;
+  height: 100%;
+  position: absolute;
+  left: 10%;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  background-color: #763ab79c;
 }
 
-.body {
-    position:absolute;
+
+
+
+mat-card, img {
+  padding: 0px;
+  border-radius: 50%;
+}
+
+.full-width{
+  width: 100%;
+}
+
+mat-action-list {
+  height: 100%;
+}
+
+.font-design {
+  font-size: 1.5vw;
+  color: white;
+  font-family: "Lucida Console", Monaco, monospace;
+}
+.icon {
+    width: 100%;
+    text-align: right;
+}
+.right {
+  height: 100%;
+  padding-top: 10%;
+}
+.left {
+  padding-top: 10%;
+  text-align: center;
+}
+
+
+.right-details {
+  height: 98%;
+  padding: 10%;
+  padding-right: 0px;
+  margin: 0px 1% 2% 1%;
+  
+}
+
+
+.personalDetails {
+  box-shadow: -12px -12px 8px 4px rgba(20, 22, 21, 0.295);
+  border-radius: 4%;
+  border:1px rgba(9, 10, 10, 1);
+  background-color: rgba(82, 224, 105, 0.527);
+  overflow-y: auto;
+  
+}
+
+.bookingsDetails {
+  box-shadow: -12px -12px 8px 4px rgba(20, 22, 21, 0.295);
+  border-radius: 4%;
+  border:1px rgba(9, 10, 10, 1);
+  background-color: rgba(214, 120, 76, 0.575);
+}
+
+.edit {
+  box-shadow: -12px -12px 8px 4px rgba(20, 22, 21, 0.295);
+  border-radius: 4%;
+  border:1px rgba(9, 10, 10, 1);
+  background-color: rgba(114, 169, 221, 0.521);
+}
+
+.passive {
+  border: 0.78px solid rgba(0, 0, 0, 0.123);
+  box-shadow: -8px -8px 8px 1px rgba(20, 22, 21, 0.295);
 }

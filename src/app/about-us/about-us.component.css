@@ -1,7 +1,7 @@
 .panel {
-    position:relative;
-    top:0%;
-    left:0%;
+    position: absolute;
+    top: 14%;
+    left: 10%;
     height:91%;
     width:80%;
     margin-left: auto;

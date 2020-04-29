@@ -1,15 +1,79 @@
 .panel {
-    position:relative;
-    top:0%;
-    left:0%;
-    height:91%;
     width:80%;
-    margin-left: auto;
-    margin-right: auto;
-    background-color: rgba(103, 58, 183, 0.32);
+  height: 100%;
+  position: absolute;
+  left: 10%;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
     
 }
 
-.body {
-    position:absolute;
+.image-block {
+    text-align: center;
+}
+
+.imageButton {
+    width: 90%;
+}
+
+img {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 5% 1%;
+}
+
+.error-message {
+    text-align: left;
+    color: red;
+}
+
+.left-text-fields{
+    padding-right: 10%;
+}
+
+.full-width {
+    width: 100%;
+}
+
+.header-hover {
+    cursor: pointer;
+}
+
+.register-button {
+    text-align: center;
+}
+
+.centered{
+    text-align: center;   
+}
+
+.radio-group {
+    display: inline;
+    flex-direction: column;
+    margin: 15px 0;
+}
+  
+.radio-button {
+    margin: 5px;
+}
+  
+
+form {
+    position: relative;
+    color: #0e0e0e;
+    border: 2px solid rgb(103, 58, 183);
+    border-radius: 25px;
+    margin-left:auto;
+    margin-right: auto;
+    width: 80%;
+    height: fit-content;
+    background-color: #673ab740;
+    top : 17%;
+    padding: 2%;
+}
+
+.register-error {
+    padding: 0px 20px
 }

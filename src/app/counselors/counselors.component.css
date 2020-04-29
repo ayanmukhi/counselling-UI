@@ -1,15 +1,31 @@
-.panel {
-    position:relative;
-    top:0%;
-    left:0%;
-    height:91%;
-    width:80%;
-    margin-left: auto;
-    margin-right: auto;
-    background-color: rgba(103, 58, 183, 0.32);
-    
+mat-card-content {
+  height: 20px;
 }
 
 .body {
-    position:absolute;
+  position: absolute;
+  top: 14%;
+  left: 10%;
+    margin-left: auto;
+    margin-right: auto;
+    width: 80%;
+    background-color: rgb(255, 255, 255);
+}
+
+.card{
+  width: 57%;
+  max-width: 400px;
+  height: fit-content;
+  box-shadow: 5px 10px #300b714f;
+  border: 1px solid #beb3d4;
+}
+
+mat-card-actions {
+  border-top: 3px dashed #beb3d4;
+  text-align: center;
+}
+
+
+img{
+  height: 100px;
 }

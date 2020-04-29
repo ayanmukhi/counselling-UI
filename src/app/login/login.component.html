@@ -27,9 +27,16 @@
           </div>     
         </div>
         <small id="credentials" class="text-danger" >{{credentialsMatch}}</small>
-        <div style="border-top: 1px solid white;padding-top: 20px;"> 
-          <button mat-button color="primary" type="submit" class="font-resize" [disabled]="!loginForm.valid" id="login_button" [class.btn-primary]="'!loginForm.valid'">LOGIN</button>
-          <button mat-button color="primary" id="register"  class="font-resize" routerLink="/register">SIGN IN</button>
+        <div style="border-top: 1px solid white;padding-top: 20px;" class="row"> 
+          <div class="col-md-6">
+            <button mat-button type="submit" class="font-resize" disabled="!loginForm.valid"  >SIGN IN</button>
+          </div>
+          <div class="col-md-6">
+            <button mat-raised-button color="accent" type="button"  class="font-resize" (click)="register()" >SIGN UP</button>
+          <!-- [routerLink]="[{ outlets: { mainOutlet: ['faq'] } }]" -->  
+          </div>
+          
+          
         </div>
     </form>
   </div>

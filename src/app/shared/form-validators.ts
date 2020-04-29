@@ -1,7 +1,8 @@
 import { AbstractControl } from "@angular/forms";
 
 export function emailValidator (control: AbstractControl): {[key:string]: any} | null {
-    const valid = /(\S+@\S+)|()/.test(control.value);
+    const valid = /^[a-zA-Z0-9]+@[a-zA-Z]+(\.[a-z]+){0,1}$/.test(control.value);
+    // console.log("validated : " + control.value + " == " + valid);
     return valid ? null : { 'value' : { value : true}};
 }
 
@@ -32,4 +33,17 @@ export function passwordNumberValidator ( control: AbstractControl): {[key:strin
         valid = true;
     }
     return valid ? null : { 'valueNumber': {value: true}};
+}
+
+export function nameValidator (control:AbstractControl): { [ key : string ] : any } | null {
+    const valid = /^[a-zA-Z .]*[a-zA-Z]$/.test( control.value );
+    // console.log( "name : " + control.value + " : " + valid);
+    return valid ? null : { 'value': {value: true}};
+}
+
+export function dateValidator (control:AbstractControl): { [ key : string ] : any } | null {
+    console.log("hey");
+    const valid = control.value;
+    console.log(valid);
+    return null;
 }

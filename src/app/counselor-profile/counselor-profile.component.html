@@ -1,4 +1,37 @@
 <div class="panel">
-    <div class="body">
+    <div class="col-md-3 col-xd-3 left">
+      <mat-action-list>
+        <button class="font-design" [class.passive]="!personalDetails" style="margin-bottom:10px;height: 30%;color: white;background-color: rgba(82, 224, 105, 0.527);border-radius: 10%;" mat-list-item (click)="details('personal')"> Personal </button>
+        <button class="font-design" [class.passive]="!bookingsDetails" style="margin-bottom:10px;height: 30%;color: white;background-color: rgba(214, 120, 76, 0.575);border-radius: 10%;" mat-list-item (click)="details('all-bookings')"> All Bookings </button>
+        <button class="font-design" [class.passive]="!edit" style="margin-bottom:10px;height: 30%;color: white;background-color: rgba(114, 169, 221, 0.521);border-radius: 10%;" mat-list-item (click)="details('edit')"> Edit </button>
+      </mat-action-list>
+    </div>
+    <div class="col-md-9 col-xd-3 right" *ngIf="profile">
+      <mat-action-list>
+        <div *ngIf="personalDetails" class="personalDetails right-details row ">
+          <div class="col-md-8">
+            <mat-card class="example-card">
+              <img *ngIf="counselorDetails.image; else elseBlock"  mat-card-image src="{{'data:image/jpg;base64,' + counselorDetails.image}}">
+              <ng-template #elseBlock>
+                <img mat-card-image src="../../assets/images/user no image/noPhotoAvailable.jpg">
+              </ng-template>
+            </mat-card>
+          </div>
+          <div >
+            <mat-list role="list">
+              <mat-list-item class="font-design" role="listitem">{{counselorDetails.name | titlecase}}</mat-list-item>
+              <mat-list-item class="font-design" role="listitem">{{counselorDetails.gender | titlecase}}</mat-list-item>
+              <mat-list-item class="font-design" role="listitem">{{counselorDetails.dob | date:'fullDate'}}</mat-list-item>
+              <mat-list-item class="font-design" role="listitem">{{counselorDetails.username }}</mat-list-item>
+            </mat-list>
+          </div> 
+        </div>  
+        <div *ngIf="bookingsDetails" class="bookingsDetails right-details">
+          booking Details
+        </div>  
+        <div *ngIf="edit" class="edit right-details">
+          edit form
+        </div>  
+      </mat-action-list>
     </div>
 </div>
