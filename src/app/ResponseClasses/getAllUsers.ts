@@ -20,6 +20,13 @@ export class GetAllUsers {
                         location:string,
                         rating:string
                     }
+                ],
+                booking : [
+                    {
+                        SeekerId : string,
+                        Date : string,
+                        AvailabilityId : string
+                    }
                 ]
             }
         ]

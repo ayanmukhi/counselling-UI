@@ -1,11 +1,12 @@
 .panel {
-    width:80%;
+  width:80%;
   height: 100%;
   position: absolute;
   left: 10%;
   margin-left: auto;
   margin-right: auto;
   display: flex;
+  
     
 }
 
@@ -69,11 +70,21 @@ form {
     margin-right: auto;
     width: 80%;
     height: fit-content;
-    background-color: #673ab740;
+
+    background-color: #bdafd46e;
     top : 17%;
     padding: 2%;
+    box-shadow: 0 0 10px 5px white;
 }
 
 .register-error {
     padding: 0px 20px
+}
+
+.form-header {
+    width: 100%;
+    text-align: right;
+}
+.form-header > mat-icon {
+    cursor: pointer;
 }

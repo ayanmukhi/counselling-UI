@@ -6,6 +6,10 @@ export const environment = {
   loginApi: 'http://filemaker/public/index.php/api/v1/login',
   getUsersApi: 'http://filemaker/public/index.php/api/v1/users/counselors',
   userApi: 'http://filemaker/public/index.php/api/v1/users',
+  appointmentApi : 'http://filemaker/public/index.php/api/v1/appointedSeeker',
+  bookingApi : 'http://filemaker/public/index.php/api/v1/bookedCounselor',
+  uploadFile : 'http://filemaker/public/index.php/upload',
+  
   production: false
 };
 

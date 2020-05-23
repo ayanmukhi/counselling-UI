@@ -33,12 +33,14 @@ export class HeaderComponent implements OnInit {
   }
 
   openProfile() {
+
+    var time = new Date().getTime();
     let token = JSON.parse(jwt_decode(localStorage.getItem('jwt')));
     if(token.role == "counselor") {
-      this._route.navigate([{ outlets: { mainOutlet: ['counselor-profile'] } }]);
+      this._route.navigate([{ outlets: { mainOutlet: ['counselor-profile', time] } }]);
     }
     else {
-      this._route.navigate(['seeker-profile']);
+      this._route.navigate([{ outlets: { mainOutlet: ['seeker-profile', time] } }]);
     }
   }
 

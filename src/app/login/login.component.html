@@ -4,9 +4,8 @@
     <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" >
         <div class="form-group center-align">
           <mat-form-field class="full-width font-resize" >          
-            <input matInput [class.is-invalid]="getUsername.invalid && getUsername.touched" type="text" placeholder="Username" formControlName="username" class="form-control" id="username" name="username" >
+            <input matInput [class.is-invalid]="getUsername.invalid && getUsername.touched" type="text" placeholder="Username" formControlName="username">
           </mat-form-field>
-          
           <div *ngIf="getUsername.invalid && getUsername.touched" style="text-align: center;" class="error-message">
             <small  *ngIf="getUsername.errors ?.required">Username is required<br></small>
             <small *ngIf="getUsername.errors ?.value">Email is not correct</small>
@@ -14,7 +13,12 @@
         </div>
         <div class="form-group center-align">
           <mat-form-field class="full-width  font-resize">     
-            <input matInput placeholder="Password" [class.is-invalid]="getPassword.invalid && getPassword.touched" type="password" formControlName="password"  id="password" name="password" class="form-control font-resize"/>
+            <input matInput placeholder="Password" #pass [class.is-invalid]="getPassword.invalid && getPassword.touched" type="password" formControlName="password" class="font-resize"/>
+            <mat-icon *ngIf="passwordVisibility; else elseBlock" matTooltip="show password" type="button" (click)="toggleVisibility(pass)"  matSuffix >visibility</mat-icon>
+            <ng-template #elseBlock>
+              <mat-icon  matTooltip="hide password" type="button" (click)="toggleVisibility(pass)"  matSuffix>visibility_off</mat-icon>
+            </ng-template>
+          
           </mat-form-field>
   
           <div *ngIf="getPassword.invalid && getPassword.touched" style="text-align: center;" class="error-message">
@@ -27,16 +31,15 @@
           </div>     
         </div>
         <small id="credentials" class="text-danger" >{{credentialsMatch}}</small>
-        <div style="border-top: 1px solid white;padding-top: 20px;" class="row"> 
+        <hr>
+        <div  class="row"> 
           <div class="col-md-6">
-            <button mat-button type="submit" class="font-resize" disabled="!loginForm.valid"  >SIGN IN</button>
+            <button mat-raised-button type="submit" class="font-resize" [disabled]="!loginForm.valid"  >SIGN IN</button>
           </div>
           <div class="col-md-6">
             <button mat-raised-button color="accent" type="button"  class="font-resize" (click)="register()" >SIGN UP</button>
           <!-- [routerLink]="[{ outlets: { mainOutlet: ['faq'] } }]" -->  
           </div>
-          
-          
         </div>
     </form>
   </div>

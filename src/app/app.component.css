@@ -1,0 +1,4 @@
+body::-webkit-scrollbar {
+    background-color: tomato;
+    display: none;
+}

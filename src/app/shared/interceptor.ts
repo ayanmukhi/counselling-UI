@@ -17,14 +17,19 @@ import {HttpRequest,HttpHeaders, HttpHandler, HttpEvent, HttpInterceptor} from "
       request: HttpRequest<any>,
       next: HttpHandler
     ): Observable<HttpEvent<any>> {
-            this.rawtoken = localStorage.getItem('jwt');
-            const headers = new HttpHeaders({
-                'Authorization': 'Bearer '+ this.rawtoken,
-                'Content-Type': 'application/json'
-            });
-            const cloneReq = request.clone({headers});
-            console.log("interceptor alert");
-            return next.handle(cloneReq);
+      const uploadURL = '/upload/';
+      this.rawtoken = localStorage.getItem('jwt');
+      if( request.url.search(uploadURL) != -1) {
+        const headers = new HttpHeaders({
+            'Authorization': 'Bearer '+ this.rawtoken,
+            'Content-Type': 'application/json'
+        });
+        const cloneReq = request.clone({headers});
+        console.log("interceptor jwt alert");
+        return next.handle(cloneReq);
+      }
+        console.log("no jwt interceptor alert");
+        return next.handle(request);
     }
 
     

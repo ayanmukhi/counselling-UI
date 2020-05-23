@@ -1,4 +1,14 @@
 /* You can add global styles to this file, and also import other style files */
 
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body { 
+    margin: 0; 
+    font-family: Roboto, "Helvetica Neue", sans-serif; 
+    background: rgb(159,119,227);
+background: linear-gradient(90deg, rgba(159,119,227,1) 0%, rgba(251,251,251,1) 50%, rgba(159,119,227,1) 100%);
+}
+
+body::-webkit-scrollbar {
+    display: none;
+    overflow: hidden;
+}

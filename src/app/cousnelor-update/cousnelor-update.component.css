@@ -1,0 +1,41 @@
+.form-header {
+    width: 100%;
+    text-align: right;
+}
+.my-modal {
+    border: 5px double #3e00bc;
+    width: 52vw;
+    background: rgb(251,251,251);
+    background: linear-gradient(90deg, rgba(251,251,251,1) 0%, rgba(159,119,227,1) 50%, rgba(251,251,251,1) 100%);
+    padding: 2%;
+}
+
+.radio-label {
+    display: block;
+}
+
+img {
+    height: 26vh    ;
+}
+
+.close-icon {
+    float: right;
+    cursor: pointer;
+}
+
+
+.col-header {
+    font-family: "Lucida Console", Monaco, monospace;
+    font-size: larger;
+}
+
+.image-edit {
+    width: 85%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.error-message {
+    color: red;
+}
+    

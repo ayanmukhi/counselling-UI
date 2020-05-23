@@ -64,10 +64,13 @@ export class CounselorBookingComponent implements OnInit {
   }
 
   selectedType(type) {
+
     //clearing any previous days available
     for (let index = this.daysAvailable.length; index >= 0; index--) {
       this.daysAvailable.pop();  
     }
+
+    
     //populating the current days available in number format
     this.data.forEach((value) => {
       if(value.Type == type ) {

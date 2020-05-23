@@ -3,7 +3,7 @@
       <mat-action-list>
         <button class="font-design" [class.passive]="!personalDetails" style="margin-bottom:10px;height: 30%;color: white;background-color: rgba(82, 224, 105, 0.527);border-radius: 10%;" mat-list-item (click)="details('personal')"> Personal </button>
         <button class="font-design" [class.passive]="!bookingsDetails" style="margin-bottom:10px;height: 30%;color: white;background-color: rgba(214, 120, 76, 0.575);border-radius: 10%;" mat-list-item (click)="details('all-bookings')"> All Bookings </button>
-        <button class="font-design" [class.passive]="!edit" style="margin-bottom:10px;height: 30%;color: white;background-color: rgba(114, 169, 221, 0.521);border-radius: 10%;" mat-list-item (click)="details('edit')"> Edit </button>
+        <button class="font-design" [class.passive]="!edit" style="margin-bottom:10px;height: 30%;color: white;background-color: rgba(114, 169, 221, 0.521);border-radius: 10%;" mat-list-item (click)="details('edit')"> More </button>
       </mat-action-list>
     </div>
     <div class="col-md-9 col-xd-3 right" *ngIf="profile">
@@ -11,26 +11,99 @@
         <div *ngIf="personalDetails" class="personalDetails right-details row ">
           <div class="col-md-8">
             <mat-card class="example-card">
-              <img *ngIf="counselorDetails.image; else elseBlock"  mat-card-image src="{{'data:image/jpg;base64,' + counselorDetails.image}}">
+              <img *ngIf="counselorDetails.data.image; else elseBlock"  mat-card-image src="{{'data:image/jpg;base64,' + counselorDetails.data.image}}">
               <ng-template #elseBlock>
                 <img mat-card-image src="../../assets/images/user no image/noPhotoAvailable.jpg">
               </ng-template>
             </mat-card>
           </div>
-          <div >
-            <mat-list role="list">
-              <mat-list-item class="font-design" role="listitem">{{counselorDetails.name | titlecase}}</mat-list-item>
-              <mat-list-item class="font-design" role="listitem">{{counselorDetails.gender | titlecase}}</mat-list-item>
-              <mat-list-item class="font-design" role="listitem">{{counselorDetails.dob | date:'fullDate'}}</mat-list-item>
-              <mat-list-item class="font-design" role="listitem">{{counselorDetails.username }}</mat-list-item>
-            </mat-list>
+          <div style="display: grid;">
+            <label class="font-design contact-design" ><b class="personalData"> NAME : </b>{{counselorDetails.data.name | titlecase}}</label>
+            <label class="font-design contact-design" ><b class="personalData"> GENDER : </b>{{counselorDetails.data.gender | titlecase}}</label>
+            <label class="font-design contact-design" ><b class="personalData"> DOB : </b>{{counselorDetails.data.dob | date:'fullDate'}}</label>
+            <label class="font-design contact-design" ><b class="personalData"> EMAIL : </b>{{counselorDetails.data.username }}</label>
           </div> 
         </div>  
-        <div *ngIf="bookingsDetails" class="bookingsDetails right-details">
-          booking Details
+        <div *ngIf="bookingsDetails" class="bookingsDetails right-details row">
+          <div class="col-md-5 booking-dates">
+            <strong >APPOINTMENT DATES</strong> 
+            <div class="table-responsive ">
+              <table class="table table-hover table-sm">
+                <tbody>
+                  <tr *ngFor="let booking of counselorDetails.data.bookings" (click)="appointmentDetails(booking.SeekerId, booking.AvailabilityId)">
+                    <td>{{booking.Date}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="col">
+            <strong  ><u>APPOINTMENT DETAILS</u></strong> 
+            <div *ngIf="seekerFetch" class="appointment-tab" >
+              <img  class="img-fluid seeker-image" *ngIf="seekerDetails.data.image; else elseBlock" src="{{'data:image/jpg;base64,' + seekerDetails.data.image}}"  >
+              <ng-template #elseBlock>
+                  <img class="img-fluid seeker-image" src="../../assets/images/user no image/noPhotoAvailable.jpg">
+              </ng-template>
+              <div class="appointment-details">
+                <small ><b class="client-details" >CLIENT NAME : </b>{{seekerDetails.data.clientName | titlecase}}</small><br>
+                <small ><b class="client-details" >CLIENT GENDER : </b>{{seekerDetails.data.clientGender | titlecase}}</small><br>
+                <small ><b class="client-details" >CLIENT EMAIL : </b>{{seekerDetails.data.clientEmail | titlecase}}</small><br>
+                <small ><b class="client-details" >CLIENT PHONE NUMBER : </b>{{seekerDetails.data.clientPhone | titlecase}}</small><br>
+                <small ><b class="client-details" >COUNSELING TYPE : </b>{{appointmentType.Type | titlecase}}</small><br>
+                <small ><b class="client-details" >COUNSELING LOCATION : </b>{{appointmentType.Location | titlecase}}</small><br>
+              </div>
+            </div>
+          </div>
         </div>  
-        <div *ngIf="edit" class="edit right-details">
-          edit form
+        <div *ngIf="edit" class="edit right-details"> 
+          <label class="contact" ><u>AVAILABILITY DETALS</u></label>
+          <div class="table-responsive avail-table">
+            <table class="table table-hover table-bordered table-sm">
+              <thead class="thead-dark">
+                <tr>
+                  <th scope="col">DAYS</th>
+                  <th scope="col">TYPE</th>
+                  <th scope="col">LOCATION</th>
+                  <th scope="col">TIME</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let avail of counselorDetails.data.availability">
+                  <td ><label *ngFor="let day of avail.Day">{{day}}&nbsp; </label></td>
+                  <td>{{avail.Type}}</td>
+                  <td>{{avail.Location}}</td>
+                  <td>{{avail.Time}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="row pad-top">
+            <div class="col-md-7 col-sm-6">
+              <label class="contact" ><u>CONATCT DETAILS</u></label>
+              <div *ngIf="counselorDetails.data.contact; else elseBlock" style="display: grid;">
+                <label class="font-design contact-design" ><b class="contactLabel">STREET NAME : </b>{{counselorDetails.data.contact.streetName | titlecase}}</label>
+                <label class="font-design contact-design"><b class="contactLabel">STATE : </b>{{ counselorDetails.data.contact.state | titlecase }}</label>
+                <label class="font-design contact-design" ><b class="contactLabel">DISTRICT : </b>{{ counselorDetails.data.contact.district | titlecase }}</label>
+                <label class="font-design contact-design" ><b class="contactLabel">PIN : </b>{{ counselorDetails.data.contact.pin | titlecase }}</label>
+                <label class="font-design contact-design" ><b class="contactLabel">PHONE  : </b>{{ counselorDetails.data.contact.phone | titlecase }}</label>
+              </div>
+              <ng-template #elseBlock>
+                <label class="font-design">Please fill your contact details</label>
+              </ng-template>
+            </div>
+            <div class="col-md-5 col-sm-6 actions">
+              <div>
+                <button mat-raised-button color="warn" (click)="getFIle()">CUSTOM UPLOAD</button>
+                <input type="file" id="uploadBtn" style="display: none;" (change)=onFileChanged($event)/>
+                <mat-progress-bar [hidden]="!progressBarDisplay" mode='determinate' [value]="percentageDone" style="margin: 20px;" id="progressBar"></mat-progress-bar>
+                <button mat-raised-button style="background-color: aqua;display: block;" (click)="onSubmit()" [disabled]="!fileSelectionComplete" class="btn">UPLOAD</button>
+              </div>
+           
+              <button mat-raised-button color="accent" class="btn" (click)="dialogOpen()">UPDATE DETAILS</button>
+              <button mat-raised-button color="warn" (click)="deleteAccount()" class="btn" >DELETE ACCOUNT</button>
+            </div>
+          </div>
+          
         </div>  
       </mat-action-list>
     </div>

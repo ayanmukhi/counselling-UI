@@ -1,5 +1,9 @@
 <div class="panel">
+    
     <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()" class="row">
+        <div class="form-header" >
+            <mat-icon (click)="closeDialog()">close</mat-icon>
+        </div>
         <div class="col-md-7 left-text-fields">
             <div >
                 <mat-form-field class="full-width font-resize">          
@@ -19,11 +23,15 @@
                     <small *ngIf="getEmail.errors ?.value">Email is not correct</small>
                 </div>
             </div>
-            <div >
+            <div class="form-group">
                 <mat-form-field class="full-width  font-resize">     
                   <input matInput placeholder="PASSWORD" #password (keyup)="touched()" [class.is-invalid]="getPassword.invalid && getPassword.touched" type="password" formControlName="password" class="font-resize"/>
+                  <mat-icon *ngIf="passwordVisibility; else passElseBlock" matTooltip="show password" type="button" (click)="toggleVisibility(password)"  matSuffix >visibility</mat-icon>
+                  <ng-template #passElseBlock>
+                      <mat-icon  matTooltip="hide password" type="button" (click)="toggleVisibility(password)"  matSuffix>visibility_off</mat-icon>
+                  </ng-template>
                 </mat-form-field>
-        
+                
                 <div *ngIf="getPassword.invalid && getPassword.touched" class="error-message">
                   <small *ngIf="getPassword.errors ?.required">Password is required<br></small>
                   <small *ngIf="getPassword.errors ?.minlength">Password must be atleast of 4 characters<br></small>
@@ -57,8 +65,6 @@
                 <img mat-card-image src="../../assets/images/user no image/images.jpg">
             </ng-template>        
             <input class="btn btn-primary imageButton" #imageInput type="file" accept="image/*" (change)="processFile(imageInput)">
-        </div>   
-        <div class="full-width register-button">
             <div>
                 <mat-radio-group class="radio-group" formControlName="role">
                     <mat-radio-button class="radio-button" *ngFor="let option of roleOptions" matTooltip="{{option.info}}" [value]="option.role" >
@@ -81,6 +87,30 @@
                     <small  *ngIf="getGender.errors ?.required">Please select your gender<br></small>
                 </div>
             </div>  
+        </div>   
+        <div class="full-width register-button">
+            <!-- <div>
+                <mat-radio-group class="radio-group" formControlName="role">
+                    <mat-radio-button class="radio-button" *ngFor="let option of roleOptions" matTooltip="{{option.info}}" [value]="option.role" >
+                        {{option.role}}
+                    </mat-radio-button>
+                </mat-radio-group>
+                <mat-icon matTooltip="Specify your Role " class="font-resize header-hover" >live_help</mat-icon>
+                <div *ngIf="getRole.invalid && getRole.touched" class="error-message centered">
+                    <small  *ngIf="getRole.errors ?.required">Please select your Role  <br></small>
+                </div>
+            </div>
+            <div>
+                <mat-radio-group class="radio-group" formControlName="gender">
+                    <mat-radio-button class="radio-button" *ngFor="let gender of genderOptions" [value]="gender" >
+                        {{gender}}
+                    </mat-radio-button>
+                </mat-radio-group>
+                <mat-icon matTooltip="Specify your gender" class="font-resize header-hover" >live_help</mat-icon>
+                <div *ngIf="getGender.invalid && getGender.touched" class="error-message centered">
+                    <small  *ngIf="getGender.errors ?.required">Please select your gender<br></small>
+                </div>
+            </div>   -->
             <hr> 
             <button mat-button type="submit" [disabled]="!registrationForm.valid || !(password.value == confirmPassword.value)">REGISTER</button>
             <span class="register-error error-message" *ngIf="errorMessage">{{errorMessage}}</span>

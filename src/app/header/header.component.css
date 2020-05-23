@@ -2,6 +2,9 @@
     flex: 2 1 auto;
 }
 
+button {
+    color: white;
+}
  
 .header-item {
     padding-right: 45px;
@@ -20,6 +23,9 @@ mat-icon:hover, .sign-in:hover {
     cursor: pointer;
 }
 mat-toolbar {
+    color: white;
     position: fixed;
     z-index: 2 ;
+    background: rgb(74,34,195);
+    background: linear-gradient(180deg, rgba(74,34,195,1) 0%, rgba(219,45,253,1) 100%);
 }

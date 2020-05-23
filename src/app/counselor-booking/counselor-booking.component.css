@@ -11,3 +11,20 @@
   .info {
     margin: 7px 0px;
   }
+
+  .full-width {
+    width: 100%;
+  }
+
+  .my-modal {
+    border: 5px double #3e00bc;
+    width: 52vw;
+    background: rgb(251,251,251);
+    background: linear-gradient(90deg, rgba(251,251,251,1) 0%, rgba(159,119,227,1) 50%, rgba(251,251,251,1) 100%);
+    padding: 2%;
+  }
+  .dialog-actions {
+    margin-top: 3%;
+    
+    float: right;
+  }

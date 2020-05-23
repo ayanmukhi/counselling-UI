@@ -1,4 +1,4 @@
-export interface GetCounselor {
+export interface GetSeeker {
     success:boolean;
     data:{
         id:Number,
@@ -9,15 +9,11 @@ export interface GetCounselor {
         password:string,
         role:string,
         image:string,
-        availability:[
+        bookings:[
             {
-                Id : string,
-                Status:string,
-                Time:string,
-                Day:string,
-                Type:string,
-                Location:string,
-                Rating:string
+                SeekerId : string,
+                Date : Date,
+                AvailabilityId : string
             }
         ],
         contact : {

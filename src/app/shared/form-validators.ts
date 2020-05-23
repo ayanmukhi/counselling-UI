@@ -47,3 +47,19 @@ export function dateValidator (control:AbstractControl): { [ key : string ] : an
     console.log(valid);
     return null;
 }
+
+export function phoneValidator (control:AbstractControl): {[ key : string ] : any | null } {
+    var valid = false;
+    if( /^[0-9]{8,13}$/.test(control.value)) {
+        valid = true;
+    }
+    return valid ? null : { 'value': {value: true}};
+}
+
+export function pinValidator (control:AbstractControl): { [ key : string ] : any | null } {
+    var valid = false;
+    if( /^[0-9]{6}$/.test(control.value)) {
+        valid = true;
+    }
+    return valid ? null : { 'value': {value: true}};
+} 

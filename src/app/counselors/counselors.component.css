@@ -1,31 +1,75 @@
-mat-card-content {
-  height: 20px;
-}
-
 .body {
   position: absolute;
   top: 14%;
   left: 10%;
-    margin-left: auto;
-    margin-right: auto;
-    width: 80%;
-    background-color: rgb(255, 255, 255);
+  margin-left: auto;
+  margin-right: auto;
+  width: 80%;
+  
+}
+.blur {
+  filter: blur(8px);
+  -webkit-filter: blur(8px);
 }
 
-.card{
-  width: 57%;
-  max-width: 400px;
-  height: fit-content;
+.card {
+  /* width: 20vw; */
   box-shadow: 5px 10px #300b714f;
-  border: 1px solid #beb3d4;
+  border: 5px double #3e00bc;
 }
 
-mat-card-actions {
-  border-top: 3px dashed #beb3d4;
+.booking-button {
+  color: white;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  border: 3px dashed white;
+  font-size: 81%;
+  background: linear-gradient(180deg, rgba(74,34,195,1) 0%, rgba(219,45,253,1) 100%);
+}
+
+
+.actions {
+  
   text-align: center;
+  
 }
 
+.skills {
+  height: 75px;
+}
+
+col {
+  padding: 0px 2%;
+}
 
 img{
-  height: 100px;
+  height: 30vh;
+}
+
+/* Structure */
+table {
+  width: 100%;
+}
+
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+
+
+.search-bar {
+  margin-left: auto;
+  margin-right: auto;
+  width: 65%;
+  border-radius: 30px;
+  padding: 0px 3%;
+  background: black;
+  color: white;
+  border: 4px double white;
+}
+
+.input-group-text {
+  background: black;
+  color: white;
 }

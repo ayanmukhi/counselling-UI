@@ -15,7 +15,7 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
 
-
+  passwordVisibility:boolean = true;
   public credentialsMatch = "";
   userData : LoginResponse;
   token : string;
@@ -23,7 +23,10 @@ export class LoginComponent implements OnInit {
   lowercase:boolean;
   number:boolean;
 
-  constructor( private fb: FormBuilder, private _apiservice: ApiService, private _route: Router) { }
+  constructor( private fb: FormBuilder,
+      private _apiservice: ApiService,
+      private _route: Router
+      ) { }
   
 
 
@@ -59,7 +62,7 @@ export class LoginComponent implements OnInit {
     this.userData = data;
     localStorage.setItem('jwt', this.userData.token);
     localStorage.setItem('image', this.userData.data);
-    this._route.navigate([{ outlets: { mainOutlet: [''] } }]);
+    this._route.navigate([{ outlets: { mainOutlet: null } }]);
   }
 
   ngOnInit() {
@@ -69,4 +72,15 @@ export class LoginComponent implements OnInit {
     this._route.navigate([{ outlets: { mainOutlet: ['register'] } }]);
   }
 
+  toggleVisibility( password ) {
+    console.log(password.type);
+    if( password.type == "password") {
+      password.type = "text";
+      this.passwordVisibility = false;
+    }
+    else {
+      password.type = "password";
+      this.passwordVisibility = true;
+    }
+  }
 }

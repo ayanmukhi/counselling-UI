@@ -16,15 +16,12 @@ import { CounselorsComponent } from './counselors/counselors.component';
 import { AboutUsComponent } from './about-us/about-us.component';
 import { FaqComponent } from './faq/faq.component';
 import { CounselorBookingComponent } from './counselor-booking/counselor-booking.component';
-import { MatDialogModule } from "@angular/material/dialog";
-import { MatListModule, MatList } from "@angular/material/list";
-import { CounselorPersonalDetailsComponent } from './counselor-personal-details/counselor-personal-details.component';
 
 
 //angular material
 import { MatToolbarModule } from "@angular/material/toolbar";
 import {MatDatepickerModule} from '@angular/material/datepicker';
-import { MatNativeDateModule, MatRippleModule } from '@angular/material/core';
+import { MatNativeDateModule, MatRippleModule, MatOptionModule } from '@angular/material/core';
 import { MatInputModule } from "@angular/material/input";
 import { MatIconModule } from "@angular/material/icon";
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -33,15 +30,22 @@ import { MatButtonModule } from "@angular/material/button";
 import { MatCardModule } from '@angular/material/card';
 import { MatGridListModule } from "@angular/material/grid-list";
 import { MatRadioModule, MAT_RADIO_DEFAULT_OPTIONS } from "@angular/material/radio";
-import { MatExpansionModule } from "@angular/material/expansion";
+import { MatExpansionModule, MatAccordion } from "@angular/material/expansion";
 import { MatDividerModule } from "@angular/material/divider";
 import { MatTabsModule } from "@angular/material/tabs";
 import { MatTooltipModule } from "@angular/material/tooltip";
+import { MatTableModule } from "@angular/material/table";
+import { MatMenuModule } from "@angular/material/menu";
+import { MatDialogModule, MatDialogRef } from "@angular/material/dialog";
+import { MatListModule } from "@angular/material/list";
+import { MatSelectModule, MatProgressBar, MatSnackBar, MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS } from "@angular/material";
 
 
 //interceptor
 import { MyInterceptor } from './shared/interceptor';
 import { DatePipe } from '@angular/common';
+import { CousnelorUpdateComponent } from './cousnelor-update/cousnelor-update.component';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 
 
 
@@ -58,7 +62,8 @@ import { DatePipe } from '@angular/common';
     AboutUsComponent,
     FaqComponent,
     CounselorBookingComponent,
-    CounselorPersonalDetailsComponent
+    CousnelorUpdateComponent,
+    MatProgressBar,
   ],
   imports: [
     BrowserModule,
@@ -82,17 +87,29 @@ import { DatePipe } from '@angular/common';
     MatTabsModule,
     MatDividerModule,
     MatListModule,
-    MatTooltipModule
-    
+    MatTooltipModule,
+    MatTableModule,
+    MatMenuModule,
+    MatOptionModule,
+    MatSelectModule,  
+    MatSnackBarModule,
+    MatExpansionModule,
+    ScrollingModule
   ],
   entryComponents: [
-    CounselorBookingComponent
+    CounselorBookingComponent,
+    CousnelorUpdateComponent,
+    
   ],
   providers: [
     DatePipe,
     {
       provide: MAT_RADIO_DEFAULT_OPTIONS,
       useValue: { color: 'primary' },
+    },
+    {
+      provide: MatDialogRef,
+      useValue: {}
     },
     {
       provide: HTTP_INTERCEPTORS,

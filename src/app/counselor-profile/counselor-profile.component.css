@@ -7,15 +7,29 @@
   margin-left: auto;
   margin-right: auto;
   display: flex;
-  background-color: #763ab79c;
 }
-
-
-
 
 mat-card, img {
   padding: 0px;
-  border-radius: 50%;
+  /* border-radius: 50%; */
+}
+
+::-webkit-scrollbar {
+    width: 0px;  /* Remove scrollbar space */
+    background: transparent;  /* Optional: just make scrollbar invisible */
+}
+
+.seeker-image {
+  margin-right: auto;
+  margin-left: auto;
+  margin-top: 2%;
+  padding: 3%;
+  width: 90%;
+  height: 30vh;
+}
+
+.appointment-details {
+  padding: 3%;
 }
 
 .full-width{
@@ -48,9 +62,16 @@ mat-action-list {
 .right-details {
   height: 98%;
   padding: 10%;
-  padding-right: 0px;
   margin: 0px 1% 2% 1%;
   
+}
+
+.client-details {
+  color: black;
+}
+
+.contact-design {
+  color: purple;
 }
 
 
@@ -61,6 +82,25 @@ mat-action-list {
   background-color: rgba(82, 224, 105, 0.527);
   overflow-y: auto;
   
+}
+
+
+.pad-top {
+  padding-top: 2%;
+}
+
+table {
+  opacity: 0.9;
+  margin-bottom: 3%;
+}
+
+.booking-dates {
+  border-right: 3px dashed #849be2;
+}
+
+.avail-table {
+  height: 40%;
+  border-bottom: 3px dashed #849be2;
 }
 
 .bookingsDetails {
@@ -81,3 +121,39 @@ mat-action-list {
   border: 0.78px solid rgba(0, 0, 0, 0.123);
   box-shadow: -8px -8px 8px 1px rgba(20, 22, 21, 0.295);
 }
+
+.contact {
+  color: #1104e0;
+  font-weight: bolder;
+  font-size: 2vw;
+  font-family: "Lucida Console", Monaco, monospace;
+}
+
+.contactLabel {
+  color: #1104e0;
+}
+
+.personalData {
+  color: #032a0d;
+}
+
+.actions {
+  border-left: 3px dashed #849be2;
+}
+
+.actions > button {
+  font-size: 1.2vw;
+  margin: 1%;
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+::ng-deep .snack-bar {
+  color: #ff0023;
+  background: black;
+  font-weight: bolder;
+}
+
+
+

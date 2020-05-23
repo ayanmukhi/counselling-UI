@@ -2,14 +2,40 @@
     position: absolute;
     top: 14%;
     left: 10%;
-    height:91%;
-    width:80%;
     margin-left: auto;
     margin-right: auto;
-    background-color: rgba(103, 58, 183, 0.32);
+    width: 80%;
     
 }
 
-.body {
-    position:absolute;
+.active {
+    border: 0.78px solid rgba(0, 0, 0, 0.123);
+    box-shadow: -8px -8px 8px 1px rgba(20, 22, 21, 0.295);
+    color: rgb(255, 255, 255);
+    background: rgba(0, 0, 0, 0.726);
+    font-size: x-large;
+  }
+
+.faq-set {
+    margin-top: 1%;
+    margin-bottom: 1%;
+}
+
+.viewport {
+    height: 20vh;
+    width: 800px;
+
+}
+
+
+
+
+mat-expansion-panel-header {
+    margin-bottom: 4vh;
+}
+
+::ng-deep .snack-bar {
+    color: #ff0023;
+    background: black;
+    font-weight: bolder;
 }

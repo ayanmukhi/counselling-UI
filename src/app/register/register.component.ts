@@ -1,13 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from "@angular/forms";
-import { DomSanitizer } from "@angular/platform-browser";
 import { emailValidator, passwordSpecialValidator, passwordLowerCaseValidator, passwordNumberValidator, passwordUpperCaseValidator, nameValidator, dateValidator } from "../shared/form-validators";
 import { ApiService } from '../api.service';
 import { Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 
-class ImageSnippet {
+class  ImageSnippet {
   pending: boolean = false;
   status: string = 'init';
 
@@ -24,6 +24,7 @@ class ImageSnippet {
 
 export class RegisterComponent implements OnInit {
 
+  passwordVisibility : boolean = true;
   errorMessage : string;
   currentYear = new Date().getFullYear();
   maxDate:Date;
@@ -39,9 +40,14 @@ export class RegisterComponent implements OnInit {
                     ];
   genderOptions: string[] = ['Male', 'Female', 'Other'];
 
-  constructor( private _fb: FormBuilder, private datePipe: DatePipe , private _apiservice: ApiService, private _route: Router  ) {
-    this.maxDate = new Date(this.currentYear - 20, 0, 1);
-  }
+  constructor( 
+    private _fb: FormBuilder,
+    private datePipe: DatePipe, 
+    private _apiservice: ApiService, 
+    private _route: Router 
+    ) {
+      this.maxDate = new Date(this.currentYear - 20, 0, 1);
+    }
 
   registrationForm = this._fb.group({
     username : ['', [Validators.required, emailValidator]],
@@ -116,6 +122,18 @@ export class RegisterComponent implements OnInit {
     reader.readAsDataURL(file);
   }
 
+  toggleVisibility( password ) {
+    console.log(password.type);
+    if( password.type == "password") {
+      password.type = "text";
+      this.passwordVisibility = false;
+    }
+    else {
+      password.type = "password";
+      this.passwordVisibility = true;
+    }
+  }
+
 
   onSubmit(){ 
     var position;
@@ -142,6 +160,10 @@ export class RegisterComponent implements OnInit {
         console.log(error)
       }
     );
+  }
+
+  closeDialog() {
+    this._route.navigate([{ outlets: { mainOutlet: ['login'] } }]);
   }
 
 

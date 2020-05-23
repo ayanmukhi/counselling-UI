@@ -1,0 +1,117 @@
+<div class="my-modal">
+    <div class="dialog" style="max-height: 86vh;" mat-dialog-content>
+        <form [formGroup]="updateForm" (ngSubmit)="submit()" class="row">
+            
+            <div class="col-md-6">
+                <label class="col-header"><b><u>PERSONAL DETAILS</u></b></label>
+                <div >
+                    <mat-form-field>
+                        <mat-label>Name</mat-label>
+                        <input matInput [class.is-invalid]="getName.invalid && getName.touched" formControlName="name" class="">
+                    </mat-form-field>
+                    <div *ngIf="getName.invalid && getName.touched"  class="error-message">
+                        <small *ngIf="getName.errors ?.required">Full Name is required<br></small>
+                        <small *ngIf="getName.errors ?.value">Name is not correct</small>
+                    </div>
+                    
+                </div>
+                <div class="form-group">
+                    <label id="example-radio-group-label" style="display: block;">Gender</label>
+                    <mat-radio-group class="radio-group row" formControlName="gender">  
+                        <mat-radio-button class="radio-button col" *ngFor="let gender of genderOptions" [value]="gender | lowercase" >
+                            {{gender}}
+                        </mat-radio-button>
+                    </mat-radio-group>
+                </div>
+                <div>
+                    <mat-form-field >
+                        <mat-label>Date of Birth</mat-label>
+                        <input matInput [max]="maxDate" [matDatepicker]="picker" formControlName="dob">
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                    </mat-form-field>
+                </div>
+                <div>
+                    <mat-form-field>
+                        <mat-label>EMAIL</mat-label>
+                        <input matInput [class.is-invalid]="getEmail.invalid && getEmail.touched" formControlName="username" class="">
+                    </mat-form-field>
+                    <div *ngIf="getEmail.invalid && getEmail.touched"  class="error-message">
+                        <small *ngIf="getEmail.errors ?.required">Email is required<br></small>
+                        <small *ngIf="getEmail.errors ?.value">Email is not correct</small>
+                    </div>
+                </div>
+                <div>
+                    <mat-card class="example-card">
+                        <img *ngIf="counselor; else elseBlock"  mat-card-image src="{{'data:image/jpg;base64,' + image}}">
+                        <ng-template #elseBlock>
+                          <img mat-card-image src="../../assets/images/user no image/noPhotoAvailable.jpg">
+                        </ng-template>
+                        <!-- <button #imageInput class="image-edit btn" type="button" accept="image/*" (change)="processFile(imageInput)"><mat-icon >edit</mat-icon></button> -->
+                    
+                        <input class="btn btn-primary image-edit" #imageInput type="file" accept="image/*" (change)="processFile(imageInput)">
+                    </mat-card>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <label class="col-header"><b><u>CONTACT DETAILS</u></b></label>
+                <mat-icon class="close-icon" (click)="closeDialog()">close</mat-icon>
+                <div>
+                    <mat-form-field>
+                        <mat-label>STREET NAME</mat-label>
+                        <input matInput [class.is-invalid]="getStreetName.invalid && getStreetName.touched" formControlName="streetName" class="">
+                    </mat-form-field>
+                    <div *ngIf="getStreetName.invalid && getStreetName.touched"  class="error-message">
+                        <small *ngIf="getStreetName.errors ?.required">Street name is required<br></small>
+                        <small *ngIf="getStreetName.errors ?.value">Street name is not correct</small>
+                    </div> 
+                </div>
+                <div>
+                    <mat-form-field>
+                        <mat-label>STATE</mat-label>
+                        <input matInput [class.is-invalid]="getState.invalid && getState.touched" formControlName="state" class="">
+                    </mat-form-field>
+                    <div *ngIf="getState.invalid && getState.touched"  class="error-message">
+                        <small *ngIf="getState.errors ?.required">State is required<br></small>
+                        <small *ngIf="getState.errors ?.value">State is not correct</small>
+                    </div>
+                </div>
+                <div>
+                    <mat-form-field>
+                        <mat-label>DISTRICT</mat-label>
+                        <input matInput [class.is-invalid]="getDistrict.invalid && getDistrict.touched" formControlName="district" class="">
+                    </mat-form-field>
+                    <div *ngIf="getDistrict.invalid && getDistrict.touched"  class="error-message">
+                        <small *ngIf="getDistrict.errors ?.required">District is required<br></small>
+                    </div>
+                </div>
+                <div>
+                    <mat-form-field>
+                        <mat-label>PIN</mat-label>
+                        <input matInput [class.is-invalid]="getPin.invalid && getPin.touched" formControlName="pin" class="">
+                    </mat-form-field>
+                    <div *ngIf="getPin.invalid && getPin.touched"  class="error-message">
+                        <small *ngIf="getPin.errors ?.required">Pin is required<br></small>
+                        <small *ngIf="getPin.errors ?.value">Pin must be 6 digits </small>
+                    </div>
+                </div>
+                <div>
+                    <mat-form-field>
+                        <mat-label>PHONE</mat-label>
+                        <input matInput [class.is-invalid]="getPhone.invalid && getPhone.touched" formControlName="phone" class="">
+                    </mat-form-field>
+                    <div *ngIf="getPhone.invalid && getPhone.touched"  class="error-message">
+                        <small *ngIf="getPhone.errors ?.required">Phone number is required<br></small>
+                        <small *ngIf="getPhone.errors ?.value">Phone number is not correct</small>
+                    </div>
+                </div>
+                <div>
+                    <button mat-raised-button type="submit" [disabled] = "!updateForm.valid" color="accent">SUBMIT</button>
+                </div>
+                
+            </div>
+        </form>
+    </div>    
+</div>
+
+
