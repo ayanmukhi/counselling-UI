@@ -43,13 +43,15 @@
                 </div>
                 <div>
                     <mat-card class="example-card">
-                        <img *ngIf="counselor; else elseBlock"  mat-card-image src="{{'data:image/jpg;base64,' + image}}">
+                        <img *ngIf="image; else elseBlock"  mat-card-image src={{image}}>
                         <ng-template #elseBlock>
                           <img mat-card-image src="../../assets/images/user no image/noPhotoAvailable.jpg">
                         </ng-template>
                         <!-- <button #imageInput class="image-edit btn" type="button" accept="image/*" (change)="processFile(imageInput)"><mat-icon >edit</mat-icon></button> -->
-                    
-                        <input class="btn btn-primary image-edit" #imageInput type="file" accept="image/*" (change)="processFile(imageInput)">
+                        <button mat-mini-fab type="button" class="upload-btn" (click)="getFIle()">
+                            <mat-icon>create_new_folder</mat-icon>
+                        </button> 
+                        <input class="btn btn-primary image-edit" id="uploadPic" #imageInput type="file" accept="image/*" (change)="processFile(imageInput, $event)">
                     </mat-card>
                 </div>
             </div>

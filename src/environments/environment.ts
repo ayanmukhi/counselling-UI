@@ -9,7 +9,8 @@ export const environment = {
   appointmentApi : 'http://filemaker/public/index.php/api/v1/appointedSeeker',
   bookingApi : 'http://filemaker/public/index.php/api/v1/bookedCounselor',
   uploadFile : 'http://filemaker/public/index.php/upload',
-  
+  media : "http://filemaker/public/index.php/api/v1/media/video",
+
   production: false
 };
 

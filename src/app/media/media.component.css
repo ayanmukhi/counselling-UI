@@ -1,0 +1,52 @@
+.body {
+  width: 91%;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+  .video-container {
+    width: 82%;
+    margin: auto;
+    border-radius: 0px;
+  }
+
+  col {
+    padding: 0px 2%;
+  }
+
+  video {
+    width: 100%;
+    height: 24vh;
+    object-fit: fill;
+  }
+
+  .title {
+    overflow: hidden;
+    margin: 0px;
+    padding: 2% 8%;
+    font-family: 'Prosto One';
+    font-size: 12px;
+    height: 6vh;
+  }
+
+  .all-videos {
+    border-bottom: 1px solid white;
+  }
+
+  .video-header {
+    width: 100%;
+    margin: 3% 3% 1% 3%;
+    border-bottom: 3px solid #f3e8a4;
+    color: white;
+    font-size: larger;
+    font-weight: 400;
+    text-align: center;
+  }
+
+  .video-footer {
+    width: 100%;
+    margin: -1% 3% 1% 3%;
+    border-bottom: 3px solid #f3e8a4;
+    color: white;
+    text-align: center;
+  }

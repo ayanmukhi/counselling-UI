@@ -1,7 +1,7 @@
 .body {
-  position: absolute;
+  /* position: absolute;
   top: 14%;
-  left: 10%;
+  left: 10%; */
   margin-left: auto;
   margin-right: auto;
   width: 80%;
@@ -12,10 +12,37 @@
   -webkit-filter: blur(8px);
 }
 
+.icon {
+  width: fit-content;
+  background-image: url('../../assets/icons/search-24px.svg');
+  background-repeat: no-repeat;
+ 
+}
+.icon-holder {
+  background-color: #C2185B;
+  color: white;
+  border: 1px solid #C2185B;
+}
+
 .card {
-  /* width: 20vw; */
+  width: 85%;
+  margin-bottom: 19%;
   box-shadow: 5px 10px #300b714f;
-  border: 5px double #3e00bc;
+  border: 5px double #C2185B;
+  max-width: -moz-fit-content;
+  min-width: -moz-fit-content;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.card-body {
+  border-top: 1px solid #c2265a;
+}
+
+.counselors-area {
+  width: 93%;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .booking-button {
@@ -23,9 +50,9 @@
   width: 100%;
   margin-left: auto;
   margin-right: auto;
-  border: 3px dashed white;
+  /* border: 3px dashed white; */
   font-size: 81%;
-  background: linear-gradient(180deg, rgba(74,34,195,1) 0%, rgba(219,45,253,1) 100%);
+  background: #c2265a;
 }
 
 
@@ -64,12 +91,27 @@ table {
   width: 65%;
   border-radius: 30px;
   padding: 0px 3%;
-  background: black;
-  color: white;
-  border: 4px double white;
+  background: white;
+  color: black;
+  border: 2px solid #ffffff;;
 }
 
-.input-group-text {
+/* .input-group-text {
   background: black;
   color: white;
+  
+} */
+
+.search-area {
+  width: 48vw;
+  margin-top: 2%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 3%;
+}
+
+::ng-deep .snack-bar {
+  color: #ff0023;
+  background: black;
+  font-weight: bolder;
 }

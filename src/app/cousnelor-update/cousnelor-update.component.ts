@@ -5,6 +5,8 @@ import { DatePipe } from '@angular/common';
 import { nameValidator, emailValidator, phoneValidator, pinValidator } from '../shared/form-validators';
 import { ApiService } from '../api.service';
 import { Router } from '@angular/router';
+import { HttpEventType, HttpResponse } from '@angular/common/http';
+import { jwtDeocde } from '../shared/jwt-decode';
 
 
 interface ModalData {
@@ -71,6 +73,10 @@ export class CousnelorUpdateComponent implements OnInit {
   genderOptions: string[] = ['Male', 'Female', 'Other'];
   selectedFile : ImageSnippet;
   updateForm : any;
+  imageRef : string;
+  imageSrc : string;
+  uploadForm = new FormData();
+
 
   constructor( public counserlorDialogRef : MatDialogRef<CousnelorUpdateComponent>,
                 @Inject(MAT_DIALOG_DATA) public counselor : ModalData,
@@ -85,7 +91,8 @@ export class CousnelorUpdateComponent implements OnInit {
   ngOnInit() {
 
     console.log("-----------------------------");
-    console.log(this.counselor.data.id);
+    console.log(this.counselor.data);
+    
     // console.log("dialog" + this.counselor.data.contact.district);
     this.image = this.counselor.data.image;
 
@@ -113,7 +120,8 @@ export class CousnelorUpdateComponent implements OnInit {
       state : [this.state, [Validators.required, nameValidator]],
       district : [this.district, [Validators.required]],
       pin : [this.pin, [Validators.required, pinValidator]],
-      phone : [this.phone, [Validators.required, phoneValidator]]
+      phone : [this.phone, [Validators.required, phoneValidator]],
+       
     });
   }
 
@@ -158,7 +166,7 @@ export class CousnelorUpdateComponent implements OnInit {
   submit() {
     var formData = this.updateForm.value;
     formData.dob = this._datePipe.transform(formData.dob, 'yyyy-MM-dd');
-    formData.image = this.image;
+    formData.image = this.imageSrc;
     formData.id = this.counselor.data.id;
     formData.role =  this.counselor.data.role;
     formData.password = this.counselor.data.password;
@@ -166,9 +174,27 @@ export class CousnelorUpdateComponent implements OnInit {
 
     this._apiService.updateUser(formData)
     .subscribe(
-      data => this.navigateUser(),
+      data => {
+        this._apiService.postUploadFile(this.uploadForm).subscribe(
+          event => {
+            if ( event.type === HttpEventType.UploadProgress ) {
+              console.log( " FILE UPLOADEDING : " );
+            }
+            if( event instanceof HttpResponse ) {
+              console.log( "RESPONSE AFTER");
+            }
+          }
+        )
+        console.log(data);
+        this.navigateUser()
+      },
       error => console.log(error)
     );
+  }
+
+
+  getFIle() {
+    document.getElementById("uploadPic").click();
   }
 
   //navigate user to their repective profile
@@ -191,23 +217,44 @@ export class CousnelorUpdateComponent implements OnInit {
   }
 
 
+  
+  processFile(imageInput: any, event) {
 
-  processFile(imageInput: any) {
     var position;
+    let image : File;
+    let imageSrc : string;
     const file: File = imageInput.files[0];
+    let title : string = this.counselor.data.username; 
+
+
+
+    //upload the file to data server
+    if( event.target.files.length >= 1 ) {
+      image = event.target.files[0];
+    }
+    
+
+    this.uploadForm.append('myFile', image, image.name);
+    this.uploadForm.append('fileTitle', title);
+    this.uploadForm.append('fileExt', image.type);
+
+    
+
+
+    //convert image to base64 url
     const reader = new FileReader();
 
     reader.addEventListener('load', (event: any) => {
       this.selectedFile = new ImageSnippet(event.target.result, file);
       
-      this.image = this.selectedFile.src;
-      for( let i = 0 ; i < this.image.length ; i++ ) {
-        if(this.image[i] == ',') {
+      imageSrc = this.selectedFile.src;
+      for( let i = 0 ; i < imageSrc.length ; i++ ) {
+        if(imageSrc[i] == ',') {
           position = i + 1;
           break;
         }
       }
-      this.image = this.image.slice(position);
+      this.imageSrc = imageSrc.slice(position);
       //console.log(this.image);
 
       this.selectedFile.pending = true;
@@ -217,6 +264,9 @@ export class CousnelorUpdateComponent implements OnInit {
 
     //sda
     reader.readAsDataURL(file);
+    reader.onload = (event) => {
+      this.image = reader.result;
+    }
   }
 
 

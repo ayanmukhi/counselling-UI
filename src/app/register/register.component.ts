@@ -5,6 +5,7 @@ import { ApiService } from '../api.service';
 import { Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { HttpResponse, HttpEventType } from '@angular/common/http';
 
 
 class  ImageSnippet {
@@ -34,6 +35,8 @@ export class RegisterComponent implements OnInit {
   touch : boolean = false;
   confirmTouch : boolean = false;
   imageBase64 : string;
+  uploadImage : File;
+  imageRef : string;
   roleOptions : any = [
                       {'role':'Seeker', 'info':'One who will take cousnelling sessions'},
                       {'role':'Counselor', 'info':'One who will give counseling sessions'}
@@ -102,9 +105,15 @@ export class RegisterComponent implements OnInit {
   }
 
 
-  processFile(imageInput: any) {
+  processFile(imageInput: any, event) {
     const file: File = imageInput.files[0];
     const reader = new FileReader();
+
+    //upload the file to data server
+    if( event.target.files.length >= 1 ) {
+      this.uploadImage = event.target.files[0];
+    }
+
 
     reader.addEventListener('load', (event: any) => {
       this.selectedFile = new ImageSnippet(event.target.result, file);
@@ -134,13 +143,20 @@ export class RegisterComponent implements OnInit {
     }
   }
 
+  getFIle() {
+    document.getElementById("uploadBtn").click();
+  }
 
-  onSubmit(){ 
+
+  onSubmit() { 
+
     var position;
     var formData = this.registrationForm.value; 
 
+    // console.log(formData);
     formData.dob = this.datePipe.transform(formData.dob , 'yyyy-MM-dd');
-    console.log(formData.dob);
+
+    //console.log(formData.dob);
     for( let i = 0 ; i < this.image.length ; i++ ) {
       if(this.image[i] == ',') {
         position = i + 1;
@@ -148,11 +164,30 @@ export class RegisterComponent implements OnInit {
       }
     }
     formData.image = this.image.slice(position);
-    //console.log(this.image.slice(position));
+    console.log(formData);
     this._apiservice.insertUser(formData)
     .subscribe(
       data => {
         console.log(data);
+        //uploading image to data server
+        const uploadFile = new FormData();
+
+        uploadFile.append('myFile', this.uploadImage, this.uploadImage.name);
+        uploadFile.append('fileTitle', this.registrationForm.get('username').value);
+        uploadFile.append('fileExt', this.uploadImage.type);
+
+        this._apiservice.postUploadFile(uploadFile)
+        .subscribe(
+          event => {
+            if ( event.type === HttpEventType.UploadProgress ) {
+              console.log( " FILE UPLOADEDING : " );
+            }
+            if( event instanceof HttpResponse ) {
+              console.log( "RESPONSE AFTER");
+              this.uploadImage = null;
+            }
+          }
+        );
         this._route.navigate([{ outlets: { mainOutlet: ['login'] } }]);
       },
       error => {

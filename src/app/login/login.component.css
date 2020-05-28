@@ -1,54 +1,83 @@
 .login{
-    padding: 1.4%;
-    position:absolute;
-    top:25%;
-    left:25%;
-    color: #0e0e0e;
-    border: 2px solid rgb(103, 58, 183);
-    border-radius: 25px;
-    margin-left:auto;
+    position: absolute;
+    top: 25%;
+    left: 37%;
+    margin-left: auto;
     margin-right: auto;
-    width: 45%;
+    width: 25%;
+    height: -webkit-fit-content;
+    height: -moz-fit-content;
     height: fit-content;
-    background-color: #673ab721;
-    z-index: 2;
+    z-index: 0;
+}
+
+.form {
+    margin: 9% 0%;
+}
+
+.login-header {
+    color: white;
+    line-height: 369%;
+    background-color: #D81B60;
+    height: 12vh;
+    font-size: 1.7vw;
+    font-weight: 500;
+}
+
+.button-area {
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
 }
 .card {
-    box-shadow: 0 0 10px 5px white;
+    box-shadow:  12px 15px 0px 0px #4d4545;
     text-align: center;
+    border-radius: 0px;
 }
 .centered{
     text-align: center;   
 }
 
-
+/* 
 button:hover {
     background-color: rgb(103, 58, 183);
     color: white;
-}
+} */
 
 .container{
     margin-top: 20px;
 }
 
-.full-width {
-    width: 60%;
+.register {
+    color: white;
+    line-height: 5vh;
+    background-color: #D81B60;
+    height: 5vh;
+    width: 100%;
+    margin-top: 12%;
+    font-size: 11px;
 }
+ .register :hover {
+     cursor: pointer;
+ }
 
 .error-message {
     text-align: left;
     color: red;
 }
 
-.font-resize {
-    font-size: 1.5vw;
+.font-design {
+    width: 85%;
+    font-size: 1.28vw;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .panel {
-    position:relative;
+    /* position:relative;
     top:0%;
-    left:0%;
-    height:91%;
+    left:0%; */
+    /* height:91%; */
     width:80%;
     margin-left: auto;
     margin-right: auto;

@@ -1,31 +1,61 @@
 <div class="panel">
     <div class="col-md-3 col-xd-3 left">
       <mat-action-list>
-        <button class="font-design" [class.passive]="!personalDetails" style="margin-bottom:10px;height: 30%;color: white;background-color: rgba(82, 224, 105, 0.527);border-radius: 10%;" mat-list-item (click)="details('personal')"> Personal </button>
-        <button class="font-design" [class.passive]="!bookingsDetails" style="margin-bottom:10px;height: 30%;color: white;background-color: rgba(214, 120, 76, 0.575);border-radius: 10%;" mat-list-item (click)="details('all-bookings')"> All Bookings </button>
-        <button class="font-design" [class.passive]="!edit" style="margin-bottom:10px;height: 30%;color: white;background-color: rgba(114, 169, 221, 0.521);border-radius: 10%;" mat-list-item (click)="details('edit')"> More </button>
+        <button class="" style="margin-bottom:10px;height: 11%;color: white;" mat-list-item (click)="details('personal')"> Personal </button>
+        <button class="" style="margin-bottom:10px;height: 11%;color: white;" mat-list-item (click)="details('all-bookings')"> Bookings </button>
+        <button class="" style="margin-bottom:10px;height: 11%;color: white;" mat-list-item (click)="details('edit')"> Availabilities </button>
+        <div>
+          <div class="example-button-container">
+            <button mat-mini-fab color="primary" (click)="getFIle()" aria-label="Example icon button with a menu icon">
+              <mat-icon>create_new_folder</mat-icon>
+            </button>
+            <input type="file"  id="uploadBtn" style="display: none;" accept="video" (change)=onFileChanged($event)/>
+            <input type="text" class="form-control title" [(ngModel)]="titleValue" placeholder="Enter Media Title" name="title" (keyup)="checkLength($event)" >
+          </div>
+          <div class="error-message" *ngIf="fileTypeError">
+            {{ fileTypeErrorMessage }}
+          </div>
+          <button mat-raised-button color="primary" (click)="onSubmit()" [disabled]="!fileSelectionComplete || fileTypeError" class="btn upload-btn">UPLOAD FILE</button>
+        </div>
+        <mat-progress-bar [hidden]="!progressBarDisplay" mode='determinate' [value]="percentageDone" style="margin: 20px 0px;width: auto;" id="progressBar"></mat-progress-bar>
+        
       </mat-action-list>
+      
     </div>
     <div class="col-md-9 col-xd-3 right" *ngIf="profile">
       <mat-action-list>
-        <div *ngIf="personalDetails" class="personalDetails right-details row ">
-          <div class="col-md-8">
+        <div *ngIf="personalDetails" class="details right-details row ">
+          <div class="col-md-6">
             <mat-card class="example-card">
-              <img *ngIf="counselorDetails.data.image; else elseBlock"  mat-card-image src="{{'data:image/jpg;base64,' + counselorDetails.data.image}}">
+              <img *ngIf="counselorDetails.data.image; else elseBlock" class="profile-image"  mat-card-image src={{counselorDetails.data.image}}>
               <ng-template #elseBlock>
-                <img mat-card-image src="../../assets/images/user no image/noPhotoAvailable.jpg">
+                <img mat-card-image class="profile-image" src="../../assets/images/user no image/noPhotoAvailable.jpg">
               </ng-template>
             </mat-card>
           </div>
-          <div style="display: grid;">
-            <label class="font-design contact-design" ><b class="personalData"> NAME : </b>{{counselorDetails.data.name | titlecase}}</label>
-            <label class="font-design contact-design" ><b class="personalData"> GENDER : </b>{{counselorDetails.data.gender | titlecase}}</label>
-            <label class="font-design contact-design" ><b class="personalData"> DOB : </b>{{counselorDetails.data.dob | date:'fullDate'}}</label>
-            <label class="font-design contact-design" ><b class="personalData"> EMAIL : </b>{{counselorDetails.data.username }}</label>
-          </div> 
+          <div class="col data">
+            <div style="display: grid;">
+              <label class=" contact-design" ><b class="personalData"> NAME : </b>{{counselorDetails.data.name | titlecase}}</label>
+              <label class=" contact-design" ><b class="personalData"> GENDER : </b>{{counselorDetails.data.gender | titlecase}}</label>
+              <label class=" contact-design" ><b class="personalData"> DOB : </b>{{counselorDetails.data.dob | date:'fullDate'}}</label>
+              <label class=" contact-design" ><b class="personalData"> EMAIL : </b>{{counselorDetails.data.username }}</label>
+              <div *ngIf="counselorDetails.data.contact" style="display: grid;">
+                <label class=" contact-design" ><b class="personalData"> STREET NAME : </b>{{counselorDetails.data.contact.streetName | titlecase}}</label>
+                <label class=" contact-design" ><b class="personalData"> STATE : </b>{{ counselorDetails.data.contact.state | titlecase }}</label>
+                <label class=" contact-design" ><b class="personalData"> DISTRICT : </b>{{ counselorDetails.data.contact.district | titlecase }}</label>
+                <label class=" contact-design" ><b class="personalData"> PIN : </b>{{ counselorDetails.data.contact.pin | titlecase }}</label>
+                <label class=" contact-design" ><b class="personalData"> PHONE  : </b>{{ counselorDetails.data.contact.phone | titlecase }}</label>
+              </div>
+            </div>
+            
+          </div>
+          <div class="profile-btn-container">
+            <button  class="btn profile-btn" (click)="dialogOpen()">UPDATE DETAILS</button>
+            <button  class="btn profile-btn" (click)="deleteAccount()"  >DELETE ACCOUNT</button>
+          </div>
         </div>  
-        <div *ngIf="bookingsDetails" class="bookingsDetails right-details row">
-          <div class="col-md-5 booking-dates">
+        <div *ngIf="bookingsDetails" class="details right-details row">
+          <div class="col-md-5 ">
             <strong >APPOINTMENT DATES</strong> 
             <div class="table-responsive ">
               <table class="table table-hover table-sm">
@@ -37,10 +67,10 @@
               </table>
             </div>
           </div>
-          <div class="col">
-            <strong  ><u>APPOINTMENT DETAILS</u></strong> 
+          <div class="col booking-dates">
+            <strong><u>APPOINTMENT DETAILS</u></strong> 
             <div *ngIf="seekerFetch" class="appointment-tab" >
-              <img  class="img-fluid seeker-image" *ngIf="seekerDetails.data.image; else elseBlock" src="{{'data:image/jpg;base64,' + seekerDetails.data.image}}"  >
+              <img  class="img-fluid seeker-image" *ngIf="seekerDetails.data.image; else elseBlock" src={{seekerDetails.data.image}} >
               <ng-template #elseBlock>
                   <img class="img-fluid seeker-image" src="../../assets/images/user no image/noPhotoAvailable.jpg">
               </ng-template>
@@ -55,8 +85,14 @@
             </div>
           </div>
         </div>  
-        <div *ngIf="edit" class="edit right-details"> 
-          <label class="contact" ><u>AVAILABILITY DETALS</u></label>
+        <div *ngIf="edit" class="details right-details"> 
+          <div class="avail-header">
+            <div>
+              <label>AVAILABILITIES</label>
+            </div>
+            <span class="fill-remaining-space"></span>
+            <mat-icon matTooltip="Specify your Role" >add</mat-icon>              
+          </div>
           <div class="table-responsive avail-table">
             <table class="table table-hover table-bordered table-sm">
               <thead class="thead-dark">
@@ -65,6 +101,7 @@
                   <th scope="col">TYPE</th>
                   <th scope="col">LOCATION</th>
                   <th scope="col">TIME</th>
+                  <th scope="col">ACTION</th>
                 </tr>
               </thead>
               <tbody>
@@ -73,37 +110,11 @@
                   <td>{{avail.Type}}</td>
                   <td>{{avail.Location}}</td>
                   <td>{{avail.Time}}</td>
+                  <td><mat-icon>edit</mat-icon><mat-icon>delete</mat-icon></td>
                 </tr>
               </tbody>
             </table>
-          </div>
-          <div class="row pad-top">
-            <div class="col-md-7 col-sm-6">
-              <label class="contact" ><u>CONATCT DETAILS</u></label>
-              <div *ngIf="counselorDetails.data.contact; else elseBlock" style="display: grid;">
-                <label class="font-design contact-design" ><b class="contactLabel">STREET NAME : </b>{{counselorDetails.data.contact.streetName | titlecase}}</label>
-                <label class="font-design contact-design"><b class="contactLabel">STATE : </b>{{ counselorDetails.data.contact.state | titlecase }}</label>
-                <label class="font-design contact-design" ><b class="contactLabel">DISTRICT : </b>{{ counselorDetails.data.contact.district | titlecase }}</label>
-                <label class="font-design contact-design" ><b class="contactLabel">PIN : </b>{{ counselorDetails.data.contact.pin | titlecase }}</label>
-                <label class="font-design contact-design" ><b class="contactLabel">PHONE  : </b>{{ counselorDetails.data.contact.phone | titlecase }}</label>
-              </div>
-              <ng-template #elseBlock>
-                <label class="font-design">Please fill your contact details</label>
-              </ng-template>
-            </div>
-            <div class="col-md-5 col-sm-6 actions">
-              <div>
-                <button mat-raised-button color="warn" (click)="getFIle()">CUSTOM UPLOAD</button>
-                <input type="file" id="uploadBtn" style="display: none;" (change)=onFileChanged($event)/>
-                <mat-progress-bar [hidden]="!progressBarDisplay" mode='determinate' [value]="percentageDone" style="margin: 20px;" id="progressBar"></mat-progress-bar>
-                <button mat-raised-button style="background-color: aqua;display: block;" (click)="onSubmit()" [disabled]="!fileSelectionComplete" class="btn">UPLOAD</button>
-              </div>
-           
-              <button mat-raised-button color="accent" class="btn" (click)="dialogOpen()">UPDATE DETAILS</button>
-              <button mat-raised-button color="warn" (click)="deleteAccount()" class="btn" >DELETE ACCOUNT</button>
-            </div>
-          </div>
-          
+          </div> 
         </div>  
       </mat-action-list>
     </div>

@@ -1,0 +1,15 @@
+<div class="body row">
+    <div class="video-header">MOTIVATIONAL VIDEOS</div>
+    <div class="row row-cols-1 row-cols-md-3" *ngIf="mediaRecieved">
+        <div class="col mb-4 " *ngFor="let media of mediae.data">
+            <div class="card video-container">
+                
+                <video controls preload="metadata" >
+                    <source src='{{media.fileRef}}#t=1' type="video/mp4">
+                </video>
+                <label class="title" >{{media.fileTitle | titlecase}}</label>
+            </div>
+        </div>
+    </div>
+    <div class="video-footer"></div>
+</div>

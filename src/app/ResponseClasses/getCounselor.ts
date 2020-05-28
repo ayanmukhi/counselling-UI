@@ -14,7 +14,7 @@ export interface GetCounselor {
                 Id : string,
                 Status:string,
                 Time:string,
-                Day:string,
+                Day:[string],
                 Type:string,
                 Location:string,
                 Rating:string

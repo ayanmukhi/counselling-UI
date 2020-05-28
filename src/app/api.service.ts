@@ -57,5 +57,13 @@ export class ApiService {
   deleteUser(id) {
     return this.httpclient.delete <DeleteResponse>( environment.userApi + '/' + id);
   }
+
+  getAllMedia() {
+    return this.httpclient.get <AllMediaResponse>(environment.media);
+  }
+
+  makeAppoinment(data) {
+    return this.httpclient.post <MakeAppointment>(environment.bookingApi, data);
+  }
   
 }

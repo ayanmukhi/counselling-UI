@@ -5,6 +5,40 @@ import { DialogData } from '../ResponseClasses/dialogDataResponse';
 import { FormBuilder, Validators } from '@angular/forms';
 import { emailValidator } from '../shared/form-validators';
 import { timer } from 'rxjs';
+import { DatePipe } from '@angular/common';
+import { CounselorProfileComponent } from '../counselor-profile/counselor-profile.component';
+import { ApiService } from '../api.service';
+import { error } from 'protractor';
+import { MatSnackBar } from '@angular/material';
+
+interface dialogData {
+
+  counselor : [
+    {
+      Id : string,
+      Status:string,
+      Time:string,
+      Day:[string],
+      Type:string,
+      Location:string,
+      Rating:string
+    }
+  ],
+  seeker : [
+    {
+      SeekerId : string,
+      Date : Date,
+      AvailabilityId : string
+    }
+  ],
+  seekerId : number;
+  counselorBookings : [
+    {
+      Date : Date,
+    }
+  ]
+}
+
 
 @Component({
   selector: 'app-counselor-booking',
@@ -13,46 +47,26 @@ import { timer } from 'rxjs';
 })
 export class CounselorBookingComponent implements OnInit {
 
-  submitButton: boolean;
+  submitButton : boolean;
   counselings = new Array;
   daysAvailable = new Array;
-  time:string;
+  time : string;
+  counselorBookings =  new Array;
+  availabilityId : number;
+  seekerId : number;
+  
   location:string;
   currDate = new Date();
   minDate = new Date(this.currDate.getFullYear(), this.currDate.getMonth(),this.currDate.getDate() + 1);
   maxDate = new Date(this.currDate.getFullYear() + 1, this.currDate.getMonth(), this.currDate.getDate());
+  seekerDaysAvailable = new Array;
 
   //building the form
   bookingForm = this.fb.group({
     category : ['', Validators.required],
-    date : ['', Validators.required]
+    date : ['', Validators.required],
+
   });
-
-  //date filter
-  myFilter = (d: Date | null): boolean => {
-    const day = (d || new Date()).getDay();
-    if(this.daysAvailable.indexOf(day) !== -1) {
-      return true;
-    }
-    else {
-      false;
-    }
-  }
-
-  constructor(
-    public dialogRef: MatDialogRef<CounselorsComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData[],
-    private fb:FormBuilder
-    ) {}
-
-
-  //close the dialog
-  onNoClick(): void {
-    this.dialogRef.close();
-  } 
-
-  
-
 
   //getters
   get getCategory() {
@@ -63,8 +77,64 @@ export class CounselorBookingComponent implements OnInit {
     return this.bookingForm.get('date');
   }
 
-  selectedType(type) {
+  //date filter
+  myFilter = (d: Date | null): boolean => {
+    var found : boolean = false;
+    const day = (d || new Date()).getDay();
+    const date = this._datePipe.transform(( d || new Date()), 'MM/dd/yyyy');
+    if(this.daysAvailable.indexOf(day) !== -1 ) {
 
+      for ( let i = 0 ; i < this.data.seeker.length; i++ ) {
+        let booking = this.data.seeker[i]; 
+        if( booking.Date.toString() == date ) {
+          found = true;
+         // console.log(date + ' ' + booking.Date.toString() + ' ' + true);
+          break;
+        }
+      }
+      if( !found ) {
+        for ( let i = 0; i < this.counselorBookings.length; i++ ) {
+          let booking = this.counselorBookings[i];
+          if( booking.toString() == date ) {
+            found = true;
+            break;
+          }
+        }
+      }
+      if( !found ) {
+       // console.log("reaching here on : " + date);
+        return true;
+      }
+      else {
+        return false;
+      }
+      
+    }
+    else {
+      false;
+    }
+  }
+
+  constructor(
+    public dialogRef: MatDialogRef<CounselorsComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: dialogData,
+    private _datePipe : DatePipe,
+    private fb:FormBuilder,
+    private _apiService : ApiService,
+    private _snack: MatSnackBar
+    ) {}
+
+
+  //close the dialog
+  onNoClick(): void {
+    this.dialogRef.close();
+  } 
+
+  
+  
+
+  selectedType(type, id) {
+    this.availabilityId = id;
     //clearing any previous days available
     for (let index = this.daysAvailable.length; index >= 0; index--) {
       this.daysAvailable.pop();  
@@ -72,7 +142,7 @@ export class CounselorBookingComponent implements OnInit {
 
     
     //populating the current days available in number format
-    this.data.forEach((value) => {
+    this.data.counselor.forEach((value) => {
       if(value.Type == type ) {
       this.time = value.Time;
       this.location = value.Location;
@@ -108,13 +178,50 @@ export class CounselorBookingComponent implements OnInit {
   }
 
   submit() {
+    //console.log( this.bookingForm.value);
+    let formData = this.bookingForm.value;
+    formData.seekerId = this.seekerId;
+    formData.availabilityId = this.availabilityId;
+    formData.date = this._datePipe.transform(formData.date, 'yyyy-MM-dd');
+    console.log(formData); 
+    this._apiService.makeAppoinment(formData)
+    .subscribe (
+      data => {
+        this.openSnackBar();
+        this.dialogRef.close();
+      },
+      error => console.log(error),
+    )
 
   }
 
+
+  openSnackBar() {
+    this._snack.open('APPOINTMENT IS MADE', '', { 
+      duration : 3000,
+      verticalPosition: 'bottom',
+      panelClass: ['snack-bar']
+     });
+  }
+
+
   ngOnInit() {
-    this.data.forEach((value) => {
-      this.counselings.push(value.Type);
+    
+    this.data.counselor.forEach((value) => {
+      this.counselings.push({
+        type : value.Type,
+        availabilityId : value.Id 
+      });
     }); 
+
+    
+    this.data.counselorBookings.forEach(booking => {
+      this.counselorBookings.push(booking.Date);
+    });
+    this.seekerId = this.data.seekerId;
+    // console.log(this.counselorBookings);
+    // console.log(this.data.seekerId);
+    
   }
 
 }

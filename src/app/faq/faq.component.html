@@ -1,27 +1,14 @@
 <div class="panel">
-        
-
         <mat-accordion>
                 <div *ngFor="let faq of faqs " class="faq-set">
-                        <mat-expansion-panel  (opened)="faq.panelOpenState = true"  [class.active]="faq.panelOpenState" (closed)="faq.panelOpenState = false">
-                                <mat-expansion-panel-header [style.margin-bottom]="faq.panelOpenState ? '4vh' : 'auto'">
+                        <mat-expansion-panel  (opened)="faq.panelOpenState = true"   [class.active]="faq.panelOpenState" [style.border-radius]="faq.panelOpenState ? '0%' : '4px'" (closed)="faq.panelOpenState = false">
+                                <mat-expansion-panel-header [style.background]="faq.panelOpenState ? '#c2265a' : 'white'" [style.margin-bottom]="faq.panelOpenState ? '4vh' : 'auto'">
                                         <mat-panel-title [style.color]="faq.panelOpenState ? 'white' : 'black'">
                                                 {{faq.question}}
                                         </mat-panel-title>
                                 </mat-expansion-panel-header>
-                                <mat-panel-title [style.color]="faq.panelOpenState ? 'white' : 'black'">
-                                        {{ faq.answers }}
-                                </mat-panel-title>
+                                <mat-panel-title class="desciption" [innerHTML]="faq.answers"></mat-panel-title>
                         </mat-expansion-panel>
                 </div>
-                
-                
         </mat-accordion>
-
-
 </div>
-<!-- <button mat-raised-button color="warn" (click)="getFIle()">CUSTOM UPLOAD</button>
-        <input type="file" id="uploadBtn" style="display: none;" (change)=onFileChanged($event)/>
-        <mat-progress-bar [hidden]="!progressBarDisplay" mode='determinate' [value]="percentageDone" style="margin: 20px;" id="progressBar"></mat-progress-bar>
-        <button mat-raised-button style="background-color: aqua;display: block;" (click)="onSubmit()" [disabled]="!fileSelectionComplete" class="btn">UPLOAD</button>
-                 -->

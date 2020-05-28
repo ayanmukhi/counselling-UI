@@ -1,4 +1,4 @@
-import { Component, OnInit, NgModule, OnDestroy } from '@angular/core';
+import { Component, OnInit, NgModule, OnDestroy, ElementRef, ViewChild } from '@angular/core';
 import { jwtDeocde } from '../shared/jwt-decode';
 import { ApiService } from '../api.service';
 import { GetCounselor } from '../ResponseClasses/getCounselor';
@@ -10,6 +10,7 @@ import { filter, pairwise, startWith, takeUntil } from 'rxjs/operators';
 import { Subject } from "rxjs";
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { HttpEventType, HttpResponse } from '@angular/common/http';
+import { SlicePipe } from '@angular/common';
 
 
 
@@ -38,7 +39,13 @@ export class CounselorProfileComponent implements OnInit, OnDestroy {
   progressBarDisplay : boolean = false;
   selectedfile : File;
   fileSelectionComplete : boolean = false;
+  title : boolean = false;
+  @ViewChild('file', {static: false}) file : ElementRef;
+  titleValue : string;
+  fileTypeError : boolean = false;
+  fileTypeErrorMessage : string = 'File must be video';
   
+
   constructor(private _api:ApiService, public counselorDialog: MatDialog, private _route: Router, private _fb: FormBuilder, private _snack: MatSnackBar) {}
 
   ngOnInit() {
@@ -52,16 +59,22 @@ export class CounselorProfileComponent implements OnInit, OnDestroy {
   }
 
 
+  checkLength(event) {
+    if( ((event.target.value).length) > 0) {
+      this.title = true;
+      this.titleValue = event.target.value;
+      
+    }
+  }
+
   deleteAccount() {
     let result = confirm("Are you sure to delete this");
     if( result ) {
       this._api.deleteUser(this.counselorDetails.data.id)
       .subscribe(
         data => {
-          
           localStorage.clear();
           this._route.navigate([{ outlets: { mainOutlet: null } }]);
-          
          },
         error => console.log(error)
       )
@@ -70,9 +83,19 @@ export class CounselorProfileComponent implements OnInit, OnDestroy {
   
 
   onFileChanged(event) {
+    console.log(event.target.files.length);
     if( event.target.files.length >= 1 ) {
       this.selectedfile = event.target.files[0];
-      this.fileSelectionComplete = true;
+      if (this.selectedfile.type.includes('video')) {
+          event.target.value = '';
+          this.fileSelectionComplete = true;
+          event.target.files = null;
+          this.fileTypeError = false;
+      } 
+      else {
+        this.fileTypeError = true;
+        event.target.files = null;
+      }
     }
   }
 
@@ -82,7 +105,7 @@ export class CounselorProfileComponent implements OnInit, OnDestroy {
 
   openSnackBar( message: string) {
     this._snack.open(message, '', { 
-      duration : 200000,
+      duration : 3000,
       verticalPosition: 'bottom',
       panelClass: ['snack-bar']
      });
@@ -91,7 +114,14 @@ export class CounselorProfileComponent implements OnInit, OnDestroy {
   onSubmit() {
     console.log(this.selectedfile);
     const uploadFile = new FormData();
+
     uploadFile.append('myFile', this.selectedfile, this.selectedfile.name);
+    if( this.titleValue == null || this.titleValue == '') {
+      uploadFile.append('fileTitle', (this.selectedfile.name).slice(0, -4) );
+    } else {
+      uploadFile.append('fileTitle', this.titleValue);
+    }
+    uploadFile.append('fileExt', this.selectedfile.type);
     this._api.postUploadFile(uploadFile).subscribe(
       event => {
         if ( event.type === HttpEventType.UploadProgress ) {
@@ -105,6 +135,9 @@ export class CounselorProfileComponent implements OnInit, OnDestroy {
           console.log(event);
           this.fileSelectionComplete = false;
           this.progressBarDisplay = false;
+          this.selectedfile = null;
+          this.titleValue = '';
+          this.title = false;
           this.openSnackBar("FILE SUCCESSFULLY UPLOADED");
         }
       }

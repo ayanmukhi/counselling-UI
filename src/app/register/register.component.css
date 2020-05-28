@@ -1,28 +1,36 @@
 .panel {
   width:80%;
-  height: 100%;
-  position: absolute;
-  left: 10%;
   margin-left: auto;
   margin-right: auto;
-  display: flex;
-  
-    
+  display: inline;
+  margin-top: 5%;
 }
+
+
 
 .image-block {
     text-align: center;
+    border: none;
+    border-radius: 0%;
 }
 
 .imageButton {
-    width: 90%;
+    display: none;
+}
+
+.upload-btn {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: -7%;
 }
 
 img {
-    width: 100%;
     margin-left: auto;
     margin-right: auto;
-    padding: 5% 1%;
+    height: 23vw;
+    width: 100%;
+    padding: 1%;
+    box-shadow: 0px 0px 9px 2px #300b714f;
 }
 
 .error-message {
@@ -42,8 +50,14 @@ img {
     cursor: pointer;
 }
 
+
 .register-button {
-    text-align: center;
+    display: -webkit-box;
+    display: flex;
+    background: #D81B60;
+    height: 9%;
+    box-shadow: 12px 15px 0px 0px #4d4545;
+    border: 1px solid white;
 }
 
 .centered{
@@ -59,32 +73,66 @@ img {
 .radio-button {
     margin: 5px;
 }
+.fill-remaining-space {
+    flex: 1 1 auto;
+}
   
 
 form {
-    position: relative;
+    padding: 1% 0% 0% 0%;
+    box-shadow: 12px 15px 0px 0px #4d4545;
     color: #0e0e0e;
-    border: 2px solid rgb(103, 58, 183);
-    border-radius: 25px;
-    margin-left:auto;
+    margin-left: auto;
     margin-right: auto;
-    width: 80%;
-    height: fit-content;
+    width: 70%;
+    height: -webkit-fit-content;
+    height: -moz-fit-content;
+    background: white;
+}
 
-    background-color: #bdafd46e;
-    top : 17%;
-    padding: 2%;
-    box-shadow: 0 0 10px 5px white;
+.form-fields {
+    padding: 0% 5%;
 }
 
 .register-error {
-    padding: 0px 20px
+    padding: 0px 20px;
+    width: 100%;
+    color: red;
+    margin-top: 2vw;
+}
+
+
+.form-title {
+    line-height: 9vh;
+    color: white;
+    font-size: initial;
+    margin: 0% 2%;
+    
+}
+
+
+.register {
+    margin-left: auto;
+    margin-right: auto;
+    width: fit-content;
 }
 
 .form-header {
     width: 100%;
-    text-align: right;
+    display: flex;
+    background: #D81B60;
+    margin: 3% 2% 0% 2%;
+    margin-left: auto;
+    margin-right: auto;
+    width: 70%;
+    height: 9%;
+    border: 1px solid white;
+    box-shadow: 12px 15px 0px 0px #4d4545;
 }
+
+
 .form-header > mat-icon {
     cursor: pointer;
+    line-height: 9vh;
+    margin: 0% 2%;
 }

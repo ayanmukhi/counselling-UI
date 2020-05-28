@@ -1,18 +1,19 @@
-<div class="body row">
-  
-  <div class="input-group mb-3 " >
+<div class="row">  
+  <div class="input-group search-area" >
     <input  type="text" (keyup)="myFilter($event.target.value)" class="form-control search-bar">
     <div class="input-group-append">
-      <span class="input-group-text"><mat-icon matTooltip="Enter counseling criteria" type="button"  matSuffix >search</mat-icon></span>
+      <span class="input-group-text icon-holder">
+        <mat-icon class="icon" matTooltip="Enter counseling criteria" type="button"  matSuffix >search</mat-icon>
+      </span> 
     </div>
   </div>
 
-  <div class="row row-cols-1 row-cols-md-3" [class.blur]='blurBackground'>
-    <div class="col mb-4" *ngFor="let counselor of filteredCounselors" style="padding: 4% 4%;">
+  <div class="row row-cols-1 row-cols-md-4 counselors-area" [class.blur]='blurBackground'>
+    <div class="col mb-4" *ngFor="let counselor of filteredCounselors" >
       <div class="card">
-        <img *ngIf="counselor.image; else elseBlock"  src="{{'data:image/jpg;base64,' + counselor.image}}" class="card-img-top img-fluid">
+        <img *ngIf="counselor.image; else elseBlock"  src={{counselor.image}} class=" ">
         <ng-template #elseBlock>
-          <img  src="../../assets/images/user no image/noPhotoAvailable.jpg" class="card-img-top img-fluid">
+          <img  src="./../../assets/images/user no image/noPhotoAvailable.jpg" class=" img-responsive">
         </ng-template>
         
         <div class="card-body">
@@ -24,7 +25,7 @@
             </span>
           </div>
           <div class="actions">
-            <button class="booking-button btn btn-primary" (click)="openDialog(counselor)">TAKE APPOINTMENT</button>
+            <button class="booking-button btn" (click)="openDialog(counselor, counselor.id, counselor.bookings)">TAKE APPOINTMENT</button>
           </div>
         </div>
       </div>

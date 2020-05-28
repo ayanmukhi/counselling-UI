@@ -71,18 +71,10 @@ export class SeekerProfileComponent implements OnInit {
     if( specifics == "personal") {
       this.personalDetails = true;
       this.bookingsDetails = false;
-      this.edit = false;
-    }
-    else if( specifics == "all-bookings" ) {
-      
-      this.personalDetails = false;
-      this.bookingsDetails = true;
-      this.edit = false;
     }
     else {
       this.personalDetails = false;
-      this.bookingsDetails = false;
-      this.edit = true;
+      this.bookingsDetails = true;
     }
     //console.log("personal : " + this.personalDetails + "\nbookings : " + this.bookingsDetails + "\nedit : " + this.edit);
   }

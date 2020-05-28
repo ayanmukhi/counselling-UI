@@ -13,7 +13,6 @@ import { CounselorProfileComponent } from './counselor-profile/counselor-profile
 import { SeekerProfileComponent } from './seeker-profile/seeker-profile.component';
 import { RegisterComponent } from './register/register.component';
 import { CounselorsComponent } from './counselors/counselors.component';
-import { AboutUsComponent } from './about-us/about-us.component';
 import { FaqComponent } from './faq/faq.component';
 import { CounselorBookingComponent } from './counselor-booking/counselor-booking.component';
 
@@ -38,7 +37,7 @@ import { MatTableModule } from "@angular/material/table";
 import { MatMenuModule } from "@angular/material/menu";
 import { MatDialogModule, MatDialogRef } from "@angular/material/dialog";
 import { MatListModule } from "@angular/material/list";
-import { MatSelectModule, MatProgressBar, MatSnackBar, MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS } from "@angular/material";
+import { MatSelectModule, MatProgressBar, MatSnackBar, MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS, MatSidenavModule } from "@angular/material";
 
 
 //interceptor
@@ -46,6 +45,8 @@ import { MyInterceptor } from './shared/interceptor';
 import { DatePipe } from '@angular/common';
 import { CousnelorUpdateComponent } from './cousnelor-update/cousnelor-update.component';
 import { ScrollingModule } from '@angular/cdk/scrolling';
+import { MediaComponent } from './media/media.component';
+import { AuthGuard } from './auth.guard';
 
 
 
@@ -59,11 +60,11 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
     SeekerProfileComponent,
     RegisterComponent,
     CounselorsComponent,
-    AboutUsComponent,
     FaqComponent,
     CounselorBookingComponent,
     CousnelorUpdateComponent,
     MatProgressBar,
+    MediaComponent,
   ],
   imports: [
     BrowserModule,
@@ -94,7 +95,8 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
     MatSelectModule,  
     MatSnackBarModule,
     MatExpansionModule,
-    ScrollingModule
+    ScrollingModule,
+    MatSidenavModule
   ],
   entryComponents: [
     CounselorBookingComponent,
@@ -117,7 +119,9 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
       multi: true
     },
     MatDatepickerModule,
-    MatRippleModule],
+    MatRippleModule,
+    AuthGuard
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

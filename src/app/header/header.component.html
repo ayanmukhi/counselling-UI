@@ -1,13 +1,14 @@
-<mat-toolbar>
+
+
+
+<mat-toolbar >
     <div class="example-button-row">
         <a mat-button class="font-resize header-hover"  [routerLink]="[{ outlets: { mainOutlet: null } }]">Home</a>
         <a mat-button class="font-resize header-hover" [routerLink]="[{ outlets: { mainOutlet: ['counselors'] } }]">Counselors</a>
         <a mat-button class="font-resize header-hover" [routerLink]="[{ outlets: { mainOutlet: ['faq'] } }]">FAQ</a>
-        <a mat-button class="font-resize header-hover"[routerLink]="[{ outlets: { mainOutlet: ['about-us'] } }]">About Us</a>
+        <a mat-button class="font-resize header-hover"[routerLink]="[{ outlets: { mainOutlet: ['motivate'] } }]">Cheer UP</a>
     </div>
 
-
-    <!-- This fills the remaining space of the current row -->
     <span class="fill-remaining-space"></span>
   
     <span class="font-resize" *ngIf="checkUserLoggedIn(); else elseBlock">
@@ -19,4 +20,9 @@
             <mat-icon class="font-resize header-hover" style="padding-left: 5px;" [routerLink]="[{ outlets: { mainOutlet: ['login'] } }]">person_add</mat-icon>
         </button>
     </ng-template>
+    
 </mat-toolbar>
+
+
+
+

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
-import * as jwt_decode from 'jwt-decode';
+import * as jwt_decode from 'jwt-decode'; 
+import { FlexLayoutModule } from '@angular/flex-layout';  
+
 
 @Component({
   selector: 'app-header',
