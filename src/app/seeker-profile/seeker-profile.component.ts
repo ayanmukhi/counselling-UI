@@ -81,15 +81,24 @@ export class SeekerProfileComponent implements OnInit {
 
   dialogOpen() {
     console.log("openning diaog");
-    this.counselorDialog.open(CousnelorUpdateComponent, {
+    var dialog =this.counselorDialog.open(CousnelorUpdateComponent, {
       data : this.seekerDetails
     });
+    dialog.afterClosed().subscribe(
+      result => {
+        let token = JSON.parse(jwtDeocde(localStorage.getItem("jwt")));
+        this._api.getUser(token.id)
+        .subscribe(
+          data => this.saveCounselorData(data),
+          error => console.log(error)
+        );
+      }
+      
+    )
   }
 
 
   appointmentDetails( seekerId, availabilityId) {
-   
-
     this._api.getBookedCounselor(availabilityId)
     .subscribe(
       data => this.saveSeekerDetails(data),

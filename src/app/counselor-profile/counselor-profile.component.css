@@ -68,6 +68,10 @@ mat-action-list {
   
 }
 
+mat-icon {
+  cursor: pointer;
+}
+  
 
 
 .booking-dates {

@@ -1,0 +1,58 @@
+<div class="panel">
+    <div class="form-header">
+        <div class="form-title">ADD NEW AVAILABILITY DETAILS</div>
+        <span class="fill-remaining-space"></span>
+        <mat-icon (click)="closeDialog()">close</mat-icon>
+    </div>
+    <hr/>
+
+    
+    <form (ngSubmit)="availabilitySubmit()" [formGroup]="newAvailabilityForm" class="form-body">
+        <div class="row">
+            <div class="col-md-6 ">
+                <div class="day-form-group">
+                    <label class="radio-group-label">Pick your day</label>
+                    <div *ngFor="let dayName of days" class="checkbox-group ">
+                        
+                        <input type="checkbox" class="checkbox" (click)="checkboxValue($event)" [checked]=dayName.checked  id={{dayName.name}} value={{dayName.name}}>
+                        <label for={{dayName.name}} class="checkbox-label" >{{dayName.name}}</label>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="time-form-group">
+                    <label>SELECT THE TIME OF COUNSELING</label>
+                    <igx-time-picker #date (onValueChanged)="checkTime(date)" [value]="timeDisplay" formControlName='time' ></igx-time-picker>
+                    <div *ngIf="getTime.invalid && getTime.touched"  class="error-message">
+                        <small *ngIf="getTime.errors ?.required">Time is required<br></small>
+                    </div>
+                </div>
+                <div>
+                    <mat-form-field class="type-form-group">
+                        <label>What is type of counseling your want to offer</label>
+                        <input matInput [class.is-invalid]="getType.invalid && getType.touched" formControlName="type" class="">
+                    </mat-form-field>
+                    <div *ngIf="getType.invalid && getType.touched"  class="error-message">
+                        <small *ngIf="getType.errors ?.required">Type of counseling is required<br></small>
+                    </div>
+                </div>
+                <div>
+                    <mat-form-field class="type-form-group">
+                        <label>Specify the place of counseling</label>
+                        <input matInput [class.is-invalid]="getLocation.invalid && getLocation.touched" formControlName="location" class="">
+                    </mat-form-field>
+                    <div *ngIf="getLocation.invalid && getLocation.touched"  class="error-message">
+                        <small *ngIf="getLocation.errors ?.required">Location of counseling is required<br></small>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr/>
+        <div class="duplicate error-message" *ngIf=duplicate>
+            {{duplicateMsg}}
+        </div>
+        <div class="btn-container">
+            <button type="submit" [disabled]="!newAvailabilityForm.valid || checkboxError" mat-raised-button class="submit-btn">SUBMIT</button>
+        </div>
+    </form>
+</div>

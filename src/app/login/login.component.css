@@ -52,8 +52,9 @@ button:hover {
     color: white;
     line-height: 5vh;
     background-color: #D81B60;
-    height: 5vh;
+    min-height: 5vh;
     width: 100%;
+    max-height: fit-content;
     margin-top: 12%;
     font-size: 11px;
 }

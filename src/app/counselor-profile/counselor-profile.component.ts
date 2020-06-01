@@ -11,6 +11,7 @@ import { Subject } from "rxjs";
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { HttpEventType, HttpResponse } from '@angular/common/http';
 import { SlicePipe } from '@angular/common';
+import { NewAvailabilityDialogComponent } from '../new-availability-dialog/new-availability-dialog.component';
 
 
 
@@ -211,41 +212,95 @@ export class CounselorProfileComponent implements OnInit, OnDestroy {
 
   dialogOpen() {
     console.log("openning diaog");
-    this.counselorDialog.open(CousnelorUpdateComponent, {
+    var dialog = this.counselorDialog.open(CousnelorUpdateComponent, {
       data : this.counselorDetails
-    });
-
-    // const dialogConfig = new MatDialogConfig();
-
-    // dialogConfig.disableClose = false;
-    // dialogConfig.autoFocus = true;
-
-    // dialogConfig.data = {
-    //   data : this.counselorDetails
-    // };
-
-    // // this.counselorDialog.open(CousnelorUpdateComponent, dialogConfig);
-    
-    // const dialogRef = this.counselorDialog.open(CousnelorUpdateComponent, dialogConfig);
-
-
-    // dialogRef.afterClosed()
-    // .toPromise
-    // .then(result => {
-    //   console.log('From Promise:', result);
-    // });
-
-    // dialogRef.afterClosed().subscribe(
-    //   data => console.log("closed")
-    // );
-
-    // dialogRef.afterClosed().subscribe(
-    //     data => console.log("Dialog output:")
-    // );    
-
+    }); 
+    dialog.afterClosed().subscribe(
+      result => {
+         console.log( "refreshing the data");
+         let token = JSON.parse(jwtDeocde(localStorage.getItem("jwt")));
+         this._api.getUser(token.id)
+         .subscribe(
+           data => this.saveCounselorData(data),
+           error => console.log(error)
+         );
+      }
+    );
     
   }
 
+  editAvailability( id ) {
+    console.log( id );
+    var dialog = this.counselorDialog.open( NewAvailabilityDialogComponent, { 
+      data : { 
+        id : this.counselorDetails.data.id,
+        oldAvailabilities : this.counselorDetails.data.availability,
+        updating : true,
+        availId : id
+      }
+     });
+     dialog.afterClosed().subscribe(
+      result => {
+         console.log( "refreshing the data");
+         let token = JSON.parse(jwtDeocde(localStorage.getItem("jwt")));
+         this._api.getUser(token.id)
+         .subscribe(
+           data => {
+             this.saveCounselorData(data);
+           },
+           error => console.log(error)
+         );
+      }
+    );
+  }
+
+  deleteAvailability( id ) {
+    let result = confirm("Are you sure to delete this counseling type of yours");
+    if( result ) {
+      this._api.deleteAvailability(id)
+      .subscribe(
+        data => {
+          console.log(data);
+          let token = JSON.parse(jwtDeocde(localStorage.getItem("jwt")));
+          this._api.getUser(token.id)
+          .subscribe(
+            data => {
+              this.saveCounselorData(data);
+            },
+            error => console.log(error)
+          );
+        },
+        error => console.log(error)
+      )
+    }
+  }
+
+
+  addAvailability() {
+    console.log("add availibility");
+    var dialog  = this.counselorDialog.open( NewAvailabilityDialogComponent, { 
+      data : { 
+        id : this.counselorDetails.data.id,
+        oldAvailabilities : this.counselorDetails.data.availability,
+        updating : false,
+        availId : null
+      }
+     });  
+     
+     dialog.afterClosed().subscribe(
+       result => {
+          console.log( "refreshing the data");
+          let token = JSON.parse(jwtDeocde(localStorage.getItem("jwt")));
+          this._api.getUser(token.id)
+          .subscribe(
+            data => {
+              this.saveCounselorData(data);
+            },
+            error => console.log(error)
+          );
+       }
+     );
+  }
   
 
 }

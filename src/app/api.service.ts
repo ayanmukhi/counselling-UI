@@ -65,5 +65,17 @@ export class ApiService {
   makeAppoinment(data) {
     return this.httpclient.post <MakeAppointment>(environment.bookingApi, data);
   }
+
+  newAailability( data ) {
+    return this.httpclient.post <InsertAvailability>( environment.availabilityApi, data);
+  }
+
+  deleteAvailability( id ) {
+    return this.httpclient.delete <DeleteAvailability>( environment.availabilityApi + "/" + id);
+  }
+
+  updateAvailability( data ) {
+    return this.httpclient.put <InsertAvailability>( environment.availabilityApi, data);
+  }
   
 }

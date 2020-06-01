@@ -91,7 +91,7 @@
               <label>AVAILABILITIES</label>
             </div>
             <span class="fill-remaining-space"></span>
-            <mat-icon matTooltip="Specify your Role" >add</mat-icon>              
+            <mat-icon matTooltip="Add new availability" (click)="addAvailability()">add</mat-icon>              
           </div>
           <div class="table-responsive avail-table">
             <table class="table table-hover table-bordered table-sm">
@@ -110,7 +110,7 @@
                   <td>{{avail.Type}}</td>
                   <td>{{avail.Location}}</td>
                   <td>{{avail.Time}}</td>
-                  <td><mat-icon>edit</mat-icon><mat-icon>delete</mat-icon></td>
+                  <td><mat-icon (click)="editAvailability(avail)">edit</mat-icon><mat-icon (click)="deleteAvailability(avail.Id)">delete</mat-icon></td>
                 </tr>
               </tbody>
             </table>

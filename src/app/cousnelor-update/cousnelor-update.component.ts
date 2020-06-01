@@ -75,6 +75,7 @@ export class CousnelorUpdateComponent implements OnInit {
   updateForm : any;
   imageRef : string;
   imageSrc : string;
+  imageChange : boolean = false;
   uploadForm = new FormData();
 
 
@@ -171,30 +172,46 @@ export class CousnelorUpdateComponent implements OnInit {
     formData.role =  this.counselor.data.role;
     formData.password = this.counselor.data.password;
     console.log(formData);
-
-    this._apiService.updateUser(formData)
-    .subscribe(
-      data => {
-        this._apiService.postUploadFile(this.uploadForm).subscribe(
-          event => {
-            if ( event.type === HttpEventType.UploadProgress ) {
-              console.log( " FILE UPLOADEDING : " );
+    
+    //uploading image to file system
+    if( this.imageChange ) {
+      this._apiService.updateUser(formData)
+      .subscribe(
+        data => {
+          this._apiService.postUploadFile(this.uploadForm).subscribe(
+            event => {
+              if ( event.type === HttpEventType.UploadProgress ) {
+                console.log( " FILE UPLOADEDING : " );
+              }
+              if( event instanceof HttpResponse ) {
+                console.log( "RESPONSE AFTER");
+              }
             }
-            if( event instanceof HttpResponse ) {
-              console.log( "RESPONSE AFTER");
-            }
-          }
-        )
-        console.log(data);
-        this.navigateUser()
-      },
-      error => console.log(error)
-    );
+          )
+          console.log(data);
+          this.navigateUser()
+        },
+        error => console.log(error)
+      );
+    }
+    else {
+      this._apiService.updateUser(formData)
+      .subscribe(
+        data => {
+          console.log(data);
+          this.navigateUser();
+        },
+        error => console.log(error)
+      );
+    }
+    
   }
 
 
   getFIle() {
     document.getElementById("uploadPic").click();
+    
+    this.imageChange = true;
   }
 
   //navigate user to their repective profile

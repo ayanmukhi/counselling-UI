@@ -4,7 +4,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-
 //website pages
 import { HeaderComponent } from './header/header.component';
 import { LoginComponent } from './login/login.component';
@@ -16,10 +15,9 @@ import { CounselorsComponent } from './counselors/counselors.component';
 import { FaqComponent } from './faq/faq.component';
 import { CounselorBookingComponent } from './counselor-booking/counselor-booking.component';
 
-
 //angular material
 import { MatToolbarModule } from "@angular/material/toolbar";
-import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule, MatRippleModule, MatOptionModule } from '@angular/material/core';
 import { MatInputModule } from "@angular/material/input";
 import { MatIconModule } from "@angular/material/icon";
@@ -37,8 +35,9 @@ import { MatTableModule } from "@angular/material/table";
 import { MatMenuModule } from "@angular/material/menu";
 import { MatDialogModule, MatDialogRef } from "@angular/material/dialog";
 import { MatListModule } from "@angular/material/list";
-import { MatSelectModule, MatProgressBar, MatSnackBar, MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS, MatSidenavModule } from "@angular/material";
 
+import { IgxTimePickerModule } from 'igniteui-angular';
+import { MatSelectModule, MatProgressBar, MatSnackBar, MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS, MatSidenavModule, MAT_CHECKBOX_CLICK_ACTION, MatCheckboxModule } from "@angular/material";
 
 //interceptor
 import { MyInterceptor } from './shared/interceptor';
@@ -47,9 +46,9 @@ import { CousnelorUpdateComponent } from './cousnelor-update/cousnelor-update.co
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { MediaComponent } from './media/media.component';
 import { AuthGuard } from './auth.guard';
+import { NewAvailabilityDialogComponent } from './new-availability-dialog/new-availability-dialog.component';
 
-
-
+//I keep the new line
 @NgModule({
   declarations: [
     AppComponent,
@@ -65,8 +64,10 @@ import { AuthGuard } from './auth.guard';
     CousnelorUpdateComponent,
     MatProgressBar,
     MediaComponent,
+    NewAvailabilityDialogComponent,
   ],
   imports: [
+    IgxTimePickerModule,
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
@@ -92,22 +93,27 @@ import { AuthGuard } from './auth.guard';
     MatTableModule,
     MatMenuModule,
     MatOptionModule,
-    MatSelectModule,  
+    MatSelectModule,
     MatSnackBarModule,
     MatExpansionModule,
     ScrollingModule,
-    MatSidenavModule
+    MatSidenavModule,
+    MatCheckboxModule
   ],
   entryComponents: [
     CounselorBookingComponent,
     CousnelorUpdateComponent,
-    
+    NewAvailabilityDialogComponent
   ],
   providers: [
     DatePipe,
     {
       provide: MAT_RADIO_DEFAULT_OPTIONS,
       useValue: { color: 'primary' },
+    },
+    {
+      provide: MAT_CHECKBOX_CLICK_ACTION,
+      useValue: 'check'
     },
     {
       provide: MatDialogRef,
@@ -124,4 +130,5 @@ import { AuthGuard } from './auth.guard';
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}
