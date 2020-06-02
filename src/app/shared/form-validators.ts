@@ -1,7 +1,7 @@
 import { AbstractControl } from "@angular/forms";
 
 export function emailValidator (control: AbstractControl): {[key:string]: any} | null {
-    const valid = /^[a-zA-Z0-9]+@[a-zA-Z]+(\.[a-z]+){0,1}$/.test(control.value);
+    const valid = /^[a-zA-Z0-9][a-zA-Z0-9.]*@[a-zA-Z]+(\.[a-z]+){0,1}$/.test(control.value);
     // console.log("validated : " + control.value + " == " + valid);
     return valid ? null : { 'value' : { value : true}};
 }

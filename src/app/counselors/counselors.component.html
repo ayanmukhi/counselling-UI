@@ -17,15 +17,17 @@
         </ng-template>
         
         <div class="card-body">
-          <strong class="card-title">{{counselor.name | titlecase}}</strong>
-          <div class="skills">
-            <small>Specialized : <br></small>
-            <span *ngFor="let category of counselor.availability" >
-              <small>{{category.Type | titlecase}} &nbsp;</small>
-            </span>
+          <div class="above-button">
+            <strong class="card-title">{{counselor.name | titlecase}}</strong>
+            <div class="skills">
+              <small>Specialized : <br></small>
+              <span *ngFor="let category of counselor.availability" >
+                <small>{{category.Type | titlecase}} &nbsp;</small>
+              </span>
+            </div>
           </div>
           <div class="actions">
-            <button class="booking-button btn" (click)="openDialog(counselor, counselor.id, counselor.bookings)">TAKE APPOINTMENT</button>
+            <button class="booking-button btn" (click)="openDialog(counselor)">TAKE APPOINTMENT</button>
           </div>
         </div>
       </div>

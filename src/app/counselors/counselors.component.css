@@ -24,6 +24,18 @@
   border: 1px solid #C2185B;
 }
 
+.above-button {
+  height: 17vh;
+  overflow: scroll;
+}
+
+
+.above-button::-webkit-scrollbar {
+  display: none;
+  overflow: hidden;
+}
+
+
 .card {
   width: 85%;
   margin-bottom: 19%;

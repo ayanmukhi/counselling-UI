@@ -11,33 +11,33 @@ import { ApiService } from '../api.service';
 import { error } from 'protractor';
 import { MatSnackBar } from '@angular/material';
 
-interface dialogData {
+// interface dialogData {
 
-  counselor : [
-    {
-      Id : string,
-      Status:string,
-      Time:string,
-      Day:[string],
-      Type:string,
-      Location:string,
-      Rating:string
-    }
-  ],
-  seeker : [
-    {
-      SeekerId : string,
-      Date : Date,
-      AvailabilityId : string
-    }
-  ],
-  seekerId : number;
-  counselorBookings : [
-    {
-      Date : Date,
-    }
-  ]
-}
+//   counselor : [
+//     {
+//       Id : string,
+//       Status:string,
+//       Time:string,
+//       Day:[string],
+//       Type:string,
+//       Location:string,
+//       Rating:string
+//     }
+//   ],
+//   seeker : [
+//     {
+//       SeekerId : string,
+//       Date : Date,
+//       AvailabilityId : string
+//     }
+//   ],
+//   seekerId : number;
+//   counselorBookings : [
+//     {
+//       Date : Date,
+//     }
+//   ]
+// }
 
 
 @Component({
@@ -53,7 +53,7 @@ export class CounselorBookingComponent implements OnInit {
   time : string;
   counselorBookings =  new Array;
   availabilityId : number;
-  seekerId : number;
+  seekerId : string;
   
   location:string;
   currDate = new Date();
@@ -117,7 +117,7 @@ export class CounselorBookingComponent implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<CounselorsComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: dialogData,
+    @Inject(MAT_DIALOG_DATA) public data: any,
     private _datePipe : DatePipe,
     private fb:FormBuilder,
     private _apiService : ApiService,
@@ -206,21 +206,25 @@ export class CounselorBookingComponent implements OnInit {
 
 
   ngOnInit() {
+    // console.log( this.data);
+    this.seekerId = this.data.seekerId;
     
+    console.log(this.seekerId);
     this.data.counselor.forEach((value) => {
       this.counselings.push({
         type : value.Type,
-        availabilityId : value.Id 
+        availabilityId : value.AvailabilityId 
       });
     }); 
 
     
-    this.data.counselorBookings.forEach(booking => {
-      this.counselorBookings.push(booking.Date);
+    this.data.counselor.forEach(bookings => {
+      bookings.forEach( booking => {
+        this.counselorBookings.push(booking);
+      });
     });
-    this.seekerId = this.data.seekerId;
-    // console.log(this.counselorBookings);
-    // console.log(this.data.seekerId);
+    
+    console.log( "seeker Id : ");
     
   }
 

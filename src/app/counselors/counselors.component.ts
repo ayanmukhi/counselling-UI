@@ -65,7 +65,7 @@ export class CounselorsComponent implements OnInit {
       .subscribe (
         data =>  { 
           this.seekerDetails = data;
-          // console.log(this.seekerDetails); 
+          console.log(this.seekerDetails.data.id); 
         },
         error => console.log(error)
       )
@@ -77,8 +77,7 @@ export class CounselorsComponent implements OnInit {
 
   }
 
-  openDialog(counselor, id, bookings): void {
-    // console.log(bookings);
+  openDialog(counselor): void {
 
     let token = localStorage.getItem('jwt');
     if(token == null) {
@@ -86,14 +85,14 @@ export class CounselorsComponent implements OnInit {
       this._route.navigate([{ outlets: { mainOutlet: ['login'] } }]);
     }
     else {
-      this.blurBackground = true;
+      // this.blurBackground = true;
       const dialogRef = this.dialog.open( CounselorBookingComponent, {
         width: "fit-content",
-        data: { 'counselor' : counselor.availability, 'seeker' : this.seekerDetails.data.bookings, 'seekerId' : this.seekerDetails.data.id, 'counselorBookings' : bookings},
+        data: { 'counselor' : counselor.availability, 'seeker' : this.seekerDetails.data.bookings, 'seekerId' : this.seekerDetails.data.id},
       });
   
       dialogRef.afterClosed().subscribe(result => {
-        this.blurBackground = false;
+        // this.blurBackground = false;
         console.log('The dialog was closed');
       });
     }
